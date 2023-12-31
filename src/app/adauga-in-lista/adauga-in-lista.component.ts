@@ -25,6 +25,8 @@ import { ElementLista } from '../model/elementLista';
 import { OperatiuniLista } from '../servicii/operatiuniLista';
 import { Router } from '@angular/router';
 
+
+
 @Component({
   selector: 'app-adauga-in-lista',
   standalone: true,

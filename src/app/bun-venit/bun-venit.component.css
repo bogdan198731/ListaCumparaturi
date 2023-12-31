@@ -4,8 +4,11 @@ mat-menu {
   flex-direction: column;
   justify-content: space-around;
 }
-
-button {
+.menu{
+  display: flex;
+  flex-direction: column;
+}
+/* button {
   width: 50px;
 }
 
@@ -35,4 +38,4 @@ button {
   border: 1px solid #84bbf3;
   color: #ffffff;
   text-shadow: 0 1px 0 #528ecc;
-}
+} */

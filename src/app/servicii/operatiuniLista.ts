@@ -12,6 +12,7 @@ export class OperatiuniLista {
 
 
   private elementeLista: ElementLista[] = [];
+  private elementeListaLucru: ElementLista[] = [];
 
   constructor() { }
 
@@ -26,7 +27,7 @@ export class OperatiuniLista {
     detalii: ',',
   };
 
-  adaugaInLista(comenzi: ElementLista) {
+  adaugaInLista(comanda: ElementLista) {
 
     this.elementeLista = [];
     if (localStorage?.getItem('data')) {
@@ -34,48 +35,54 @@ export class OperatiuniLista {
         localStorage.getItem('data')?.valueOf() as string
       );
     }
-    this.elementeLista.push(comenzi);
-    this.salvareLista(this.elementeLista)
+    this.elementeListaLucru.push(comanda);
+    this.salvareLista();
   }
 
   recuperareLista() {
     if (localStorage?.getItem('data')) {
-      return JSON.parse(localStorage.getItem('data')?.valueOf() as string);
+      this.elementeListaLucru = JSON.parse(localStorage.getItem('data')?.valueOf() as string);
     }
   }
 
- stergeComanda(listaComenziSortata:MatTableDataSource<ElementLista>, id:number){
-  this.salvareLista(listaComenziSortata.data.filter(a => a.id !== id))
-  return listaComenziSortata.data.filter(a => a.id !== id)
+  retituieListaLucru(){
+    return this.elementeListaLucru;
+  }
+  alimenteazaListaLucru(listaLucru:ElementLista[]){
+    this.elementeListaLucru = listaLucru;
+  }
+
+ stergeComanda( id:number){
+  this.elementeListaLucru = this.elementeListaLucru.filter(index => index.id !== id)
+  this.salvareLista();
+
  }
 
   recuperareComanda(id:number) :ElementLista{
-   const elementeLista = this.recuperareLista() as ElementLista[];
+   const elementeLista = this.elementeListaLucru;
    let elL!:ElementLista;
    elementeLista.filter(a => a.id === id)
    .map(a => elL = a )
     return elL;
   }
 
-  modificareComanda(comanda:ElementLista){
-    this.elementeLista = this.recuperareLista()
-    let listaFictiva: ElementLista[] = [];
-     this.elementeLista.map(
-      a => {
-        if(a.id === comanda.id){
-          listaFictiva.push(comanda)
-        }
-        else{
-          listaFictiva.push(a)
-        }
-      } 
-    )
-    
-    this.salvareLista(listaFictiva)
+  modificaStare(id: number) {
+    console.info("id = ", id)
+    this.elementeListaLucru
+      .filter(a => a.id === id)
+      .map(a => (a.gata = !a.gata));
+      this.salvareLista();
   }
 
-  salvareLista(comenzi: ElementLista[]){
-    const comandaJSON = JSON.stringify(comenzi);
+  modificareComanda(comanda:ElementLista){
+    console.log("comanda = ", comanda)
+    const index = this.elementeListaLucru.findIndex(index => index.id === comanda.id)
+    this.elementeListaLucru[index] = comanda;
+    this.salvareLista();
+  }
+
+  salvareLista(){
+    const comandaJSON = JSON.stringify(this.elementeListaLucru);
     localStorage.setItem('data', comandaJSON);
   }
 }

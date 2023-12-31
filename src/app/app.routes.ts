@@ -3,6 +3,7 @@ import { AdaugaInListaComponent } from './adauga-in-lista/adauga-in-lista.compon
 import { ListaCumparaturiComponent } from './lista-cumparaturi/lista-cumparaturi.component';
 import { BunVenitComponent } from './bun-venit/bun-venit.component';
 import { VeziDetaliiComponent } from './vezi-detalii/vezi-detalii.component';
+import { FiltreComponent } from './filtre/filtre.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/bunvenit', pathMatch: 'full' },
@@ -10,4 +11,5 @@ export const routes: Routes = [
   { path: 'listacumparaturi', component: ListaCumparaturiComponent },
   { path: 'adaugelement', component: AdaugaInListaComponent },
   { path: 'detalii/:id', component:VeziDetaliiComponent},
+  { path: 'filtre', component: FiltreComponent},
 ];
