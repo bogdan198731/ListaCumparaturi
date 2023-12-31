@@ -36,7 +36,6 @@ export class ListaCumparaturiComponent implements AfterViewInit, OnInit {
   ) {}
   ngOnInit(): void {
     this.listaComenziSortata.data = this.manipulareLista.recuperareLista();
-    console.log('listaComenzi onInit', this.listaComenziSortata);
   }
 
   ngAfterViewInit() {
@@ -49,12 +48,9 @@ export class ListaCumparaturiComponent implements AfterViewInit, OnInit {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
-    console.log('anounce sort');
   }
 
   modificaStare(id: number) {
-    console.log('id = ', id);
-    console.log(this.listaComenziSortata.data.filter(a => a.id === id));
     this.listaComenziSortata.data
       .filter(a => a.id === id)
       .map(a => (a.gata = !a.gata));

@@ -60,13 +60,10 @@ export class OperatiuniLista {
   modificareComanda(comanda:ElementLista){
     this.elementeLista = this.recuperareLista()
     let listaFictiva: ElementLista[] = [];
-    console.log("modificareComanda = ", comanda)
      this.elementeLista.map(
       a => {
-        console.log("a = ", a)
         if(a.id === comanda.id){
           listaFictiva.push(comanda)
-          console.log("Gasit")
         }
         else{
           listaFictiva.push(a)

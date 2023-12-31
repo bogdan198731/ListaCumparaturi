@@ -105,7 +105,6 @@ export class VeziDetaliiComponent implements OnInit {
     this.elementLista.detalii = this.formularComanda.get('detalii')?.value;
     this.elementLista.gata = false;
     this.elementLista.id = this.index;
-    console.log("modific comanda = ", this.elementLista)
     this.operatiuniLista.modificareComanda(this.elementLista)
     this.router.navigate(['/listacumparaturi']);
   }
