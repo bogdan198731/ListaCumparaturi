@@ -1,8 +1,13 @@
-
-<!-- <app-lista-cumparaturi></app-lista-cumparaturi>
-<app-adauga-in-lista></app-adauga-in-lista> -->
-<nav>
-    <a class="button" routerLink="/listacumparaturi"
-    ariaCurrentWhenActive="page">Crisis Center</a> |
-    <a class="button" routerLink="/adaugelement">Heroes</a>
-  </nav>
+<button mat-button [matMenuTriggerFor]="menu">Menu</button>
+<mat-menu #menu="matMenu">
+  <a mat-menu-item routerLink="/listacumparaturi" class="exButton">Lista cumparaturi
+  </a>
+  <a mat-menu-item routerLink="/adaugelement" class="exButton">Adaug </a>
+  <button mat-menu-item [routerLink]="['/listacumparaturi']" class="exButton">
+    Exercise3
+  </button>
+  <button mat-menu-item [routerLink]="['/adaugelement']" class="exButton">
+    Exercise4
+  </button>
+</mat-menu>
+<router-outlet></router-outlet>

@@ -1,0 +1,29 @@
+<div>
+    <h2>Detalii cumparaturi</h2>
+    <form [formGroup]="formularComanda" class="ecran">
+        <mat-form-field>
+            <mat-label>Nume</mat-label>
+            <input matInput [formControl]="nume" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Cantitate</mat-label>
+            <input matInput [formControl]="cantitate" type="text" />
+            <div *ngIf="cantitate.errors?.['pattern']">Cantitatea trebuie sa fie numerica.</div>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Unitate masura</mat-label>
+            <input matInput [formControl]="unitateMasura" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Magazin</mat-label>
+            <input matInput [formControl]="magazin" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Detalii</mat-label>
+            <input matInput [formControl]="detalii" />
+        </mat-form-field>
+        <div class="butonAdd">
+            <button class="center" (click)="modificComanda()">Actualizare Comanda</button>
+        </div>
+    </form>
+</div>
