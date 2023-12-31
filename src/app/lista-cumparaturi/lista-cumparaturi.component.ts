@@ -73,7 +73,7 @@ export class ListaCumparaturiComponent implements AfterViewInit, OnInit, OnChang
       }
       if(this.gestiuneFiltre.restituieMagazin().length > 0)
       { const magazin = this.gestiuneFiltre.restituieMagazin();
-        this.listaComenziSortata.data = this.listaComenziSortata.data.filter(
+        this.listaComenziSortata.data = this.listaComenziSortata.data.filter( 
           comanda => magazin.includes(comanda.magazin)
         )
       }
