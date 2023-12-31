@@ -1,0 +1,63 @@
+<div *ngIf="listaComenziSortata">
+  <table mat-table [dataSource]="listaComenziSortata" matSort (matSortChange)="announceSortChange($event)"
+    class="mat-elevation-z8">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="nume">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+        Nume
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.nume}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="cantitate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+        Cantitate
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.cantitate}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="unitateMasura">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
+        UM
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.unitateMasura}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="magazin">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by symbol">
+        Magazin
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.magazin}} </td>
+    </ng-container>
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="gata">
+      <th mat-header-cell *matHeaderCellDef>
+        Gata
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <button (click)="modificaStare(element.id)">
+          <span *ngIf="element.gata"> Gasit</span>
+          <span *ngIf="!element.gata"> Negasit </span>
+          {{element.id}}
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="sterge">
+      <th mat-header-cell *matHeaderCellDef>
+        Gata
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <button (click)="sterge(element.id)">
+          Sterge
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="coloane"></tr>
+    <tr mat-row *matRowDef="let row; columns: coloane;"></tr>
+  </table>
+</div>

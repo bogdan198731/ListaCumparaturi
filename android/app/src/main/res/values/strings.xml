@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Lista Cumparaturi</string>
+    <string name="title_activity_main">Lista Cumparaturi</string>
+    <string name="package_name">com.b198731.app</string>
+    <string name="custom_url_scheme">com.b198731.app</string>
+</resources>
