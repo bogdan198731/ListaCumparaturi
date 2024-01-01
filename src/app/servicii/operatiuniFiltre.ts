@@ -16,7 +16,6 @@ export class OperatiuniFiltre{
         this.nume = nume;
     }
     alimenteazaMagazin(magazin:string[]){
-        console.log("magazin = ", magazin)
         this.magazin = magazin;
     }
     restituieNume() : string[]{
@@ -26,10 +25,13 @@ export class OperatiuniFiltre{
         return this.magazin;
     }
     modificaFiltruAdevarat(){
-        this.fixed.next(true);
+        this.filtru = true;
+        this.fixed.next(this.filtru);
+        
     }
     modificaFiltruFals(){
-        this.fixed.next(false);
+        this.filtru = false;
+        this.fixed.next(this.filtru);
         this.alimenteazaNume([])
         this.alimenteazaMagazin([])
     }

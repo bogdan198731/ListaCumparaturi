@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
 import { OperatiuniLista } from '../servicii/operatiuniLista';
 import { OperatiuniFiltre } from '../servicii/operatiuniFiltre';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
-import { ListaCumparaturiComponent } from '../lista-cumparaturi/lista-cumparaturi.component';
 
 @Component({
   selector: 'app-bun-venit',
@@ -26,7 +25,7 @@ import { ListaCumparaturiComponent } from '../lista-cumparaturi/lista-cumparatur
     RouterLink,
      ],
   templateUrl: './bun-venit.component.html',
-  styleUrl: './bun-venit.component.css',
+  styleUrl: './bun-venit.component.scss',
 })
 export class BunVenitComponent implements OnInit, OnDestroy{
 
@@ -47,11 +46,19 @@ export class BunVenitComponent implements OnInit, OnDestroy{
     this.operatiuniLista.salvareLista();
     this.subscription.unsubscribe();
   }
-  scoateFiltre(){
-    console.log("elimina filtre")    
+  scoateFiltre(){  
     this.operatiuniFiltre.modificaFiltruFals();
     this.reload.next(true)
     this.router.navigate(['/listacumparaturi']);
 
+  }
+  adaugaFiltre(){  
+    this.router.navigate(['/filtre']);
+    this.reload.next(false)
+
+  }
+
+  testBack(){
+    
   }
 }

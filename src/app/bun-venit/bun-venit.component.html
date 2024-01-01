@@ -1,20 +1,17 @@
 <div class="menu">
   <div>
-    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-    <mat-menu #menu="matMenu">
-      <a mat-menu-item routerLink="/listacumparaturi" class="exButton">Lista cumparaturi
-      </a>
-      <a mat-menu-item routerLink="/adaugelement" class="exButton">Adaug </a>
-      <button mat-menu-item [routerLink]="['/filtre']" class="exButton">
-        Filtre
-      </button>
-      <button mat-menu-item [routerLink]="['/listacumparaturi']" class="exButton">
-        Elimina Filtre
-      </button>
-    </mat-menu>
+    <button class="noButton" routerLink="/listacumparaturi">Lista cumparaturi
+    </button>
+    <button class="noButton" routerLink="/adaugelement">Adaug </button>
+    <button class="noButton" (click)="testBack()">testBack </button>
   </div>
-  <div *ngIf="isFixed">
-    <button (click)="scoateFiltre()">Elimina Filtre</button>
+  <div>
+    <div *ngIf="isFixed">
+      <button class="noButton" (click)="scoateFiltre()">Elimina Filtre</button>
+    </div>
+    <div *ngIf="!isFixed">
+      <button class="noButton" (click)="adaugaFiltre()">Adauga Filtre</button>
+    </div>
   </div>
 </div>
 

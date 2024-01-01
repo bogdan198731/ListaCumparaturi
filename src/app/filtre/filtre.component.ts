@@ -38,6 +38,8 @@ import { ListaCumparaturiComponent } from '../lista-cumparaturi/lista-cumparatur
 })
 
 export class FiltreComponent implements OnInit{
+  numeLista:string[] = [];
+  magazinLista:string[] = [];
 
   nume = new FormControl('');
   numeSalvat = new FormControl('');
@@ -54,46 +56,42 @@ export class FiltreComponent implements OnInit{
 
   }
   ngOnInit(): void {
+    this.numeLista = [];
+    this.magazinLista = [];
     this.listaComenzi = this.operatiuniLista.retituieListaLucru();
-    if(this.gestiuneFiltre.nume.length > 0)
-    {
-      console.log("this.numeSalvat = ",this.numeSalvat)
-      this.nume = this.numeSalvat;
-      this.magazin = this.magazinSalvat;
-    }
-
+    this.listaComenzi.forEach(el => 
+      { this.numeLista.push(el.nume)
+        this.magazinLista.push(el.magazin)
+    })
+    this.numeLista = [... new Set(this.numeLista)];
+    this.magazinLista = [... new Set(this.magazinLista)];
     
   }
 
   aplicaFiltre(){
-    const numeBrut  = this.nume.value as unknown as ElementLista[];
+    const numeBrut  = this.nume.value as unknown as string[];
     let numeLocal:string[] = [];
-    const magazinBrut = this.magazin.value as unknown as ElementLista[];
+    const magazinBrut = this.magazin.value as unknown as string[];
     let magazinLocal:string[] = [];
     try{
-    numeBrut.forEach(
-      el => numeLocal.push(el.nume)
-    );
-     this.numeSalvat = this.nume; 
+
+      numeLocal = numeBrut;
+
   }
     catch{
       numeLocal = []
     }
     try{
-      magazinBrut.forEach(
-      el => magazinLocal.push(el.magazin)
-    );
-    this.magazinSalvat= this.magazin;
-  }
+      magazinLocal = magazinBrut; 
+    }
     catch{
       magazinLocal = [];
     }
-    console.log("this.numeSalvat = ",this.numeSalvat)
+
     this.gestiuneFiltre.alimenteazaNume(numeLocal);
     this.gestiuneFiltre.alimenteazaMagazin(magazinLocal);
     this.gestiuneFiltre.filtru = true
-    this.gestiuneFiltre.modificaFiltruAdevarat();
-    
+    this.gestiuneFiltre.modificaFiltruAdevarat();    
     this.router.navigate(['/listacumparaturi']);
   }
 

@@ -67,7 +67,6 @@ export class OperatiuniLista {
   }
 
   modificaStare(id: number) {
-    console.info("id = ", id)
     this.elementeListaLucru
       .filter(a => a.id === id)
       .map(a => (a.gata = !a.gata));
@@ -75,7 +74,6 @@ export class OperatiuniLista {
   }
 
   modificareComanda(comanda:ElementLista){
-    console.log("comanda = ", comanda)
     const index = this.elementeListaLucru.findIndex(index => index.id === comanda.id)
     this.elementeListaLucru[index] = comanda;
     this.salvareLista();

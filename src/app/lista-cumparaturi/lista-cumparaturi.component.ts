@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { ElementLista } from '../model/elementLista';
 import { OperatiuniLista } from '../servicii/operatiuniLista';
@@ -19,7 +19,7 @@ import { BunVenitComponent } from '../bun-venit/bun-venit.component';
   templateUrl: './lista-cumparaturi.component.html',
   styleUrl: './lista-cumparaturi.component.css',
 })
-export class ListaCumparaturiComponent implements AfterViewInit, OnInit, OnChanges, OnDestroy {
+export class ListaCumparaturiComponent implements OnInit, OnDestroy {
   coloane: string[] = [
     'nume',
     'cantitate',
@@ -39,54 +39,34 @@ export class ListaCumparaturiComponent implements AfterViewInit, OnInit, OnChang
     private gestiuneFiltre:OperatiuniFiltre,
     private bunVenitComponent:BunVenitComponent,
   ) {}
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log("NgOnchange")
-    this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru();
 
-    if(this.gestiuneFiltre.filtru)
-    {this.gestiuneFiltre.filtru = false;
-      if(this.gestiuneFiltre.restituieNume().length > 0)
-      { const nume = this.gestiuneFiltre.restituieNume();
-        this.listaComenziSortata.data = this.listaComenziSortata.data.filter(
-          comanda => nume.includes(comanda.nume)
-        )
-      }
-      if(this.gestiuneFiltre.restituieMagazin().length > 0)
-      { const magazin = this.gestiuneFiltre.restituieMagazin();
-        this.listaComenziSortata.data = this.listaComenziSortata.data.filter(
-          comanda => magazin.includes(comanda.magazin)
-        )
-      }
-    }
-  }
+
   ngOnInit(): void {
-    console.log("NgOnInit")
     this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru();
 
-    if(this.gestiuneFiltre.filtru)
-    {this.gestiuneFiltre.filtru = false;
-      if(this.gestiuneFiltre.restituieNume().length > 0)
-      { const nume = this.gestiuneFiltre.restituieNume();
-        this.listaComenziSortata.data = this.listaComenziSortata.data.filter(
-          comanda => nume.includes(comanda.nume)
-        )
-      }
-      if(this.gestiuneFiltre.restituieMagazin().length > 0)
-      { const magazin = this.gestiuneFiltre.restituieMagazin();
-        this.listaComenziSortata.data = this.listaComenziSortata.data.filter( 
-          comanda => magazin.includes(comanda.magazin)
-        )
-      }
-    }
     this.subscription = this.bunVenitComponent.reload$
     .subscribe(reload => {if(reload){
-      this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru()}})
+      this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru()}
+    else{
+      {this.gestiuneFiltre.filtru = false;
+        if(this.gestiuneFiltre.restituieNume().length > 0)
+        { const nume = this.gestiuneFiltre.restituieNume();
+          this.listaComenziSortata.data = this.listaComenziSortata.data.filter(
+            comanda => nume.includes(comanda.nume)
+          )
+        }
+        if(this.gestiuneFiltre.restituieMagazin().length > 0)
+        { const magazin = this.gestiuneFiltre.restituieMagazin();
+          this.listaComenziSortata.data = this.listaComenziSortata.data.filter( 
+            comanda => magazin.includes(comanda.magazin)
+          )
+        }
+      }
+    }
+    })
   }
 
-  ngAfterViewInit() {
-    console.log("AfterInit")
-    this.listaComenziSortata.sort = this.sort;
-  }
+
 
   ngOnDestroy(): void {
     this.operatiuniLista.salvareLista();
