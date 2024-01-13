@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { OperatiuniLista } from '../servicii/operatiuniLista';
 import { OperatiuniFiltre } from '../servicii/operatiuniFiltre';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
+import { TestAndroid } from '../servicii/testService';
 
 @Component({
   selector: 'app-bun-venit',
@@ -27,38 +28,39 @@ import { BehaviorSubject, Subject, Subscription } from 'rxjs';
   templateUrl: './bun-venit.component.html',
   styleUrl: './bun-venit.component.scss',
 })
-export class BunVenitComponent implements OnInit, OnDestroy{
+export class BunVenitComponent {
 
-  isFixed: boolean = false;
-  subscription: Subscription = new Subscription();
+  // isFixed: boolean = false;
+  // subscription: Subscription = new Subscription();
 
-  private reload = new BehaviorSubject<boolean>(false); // true is your initial value
-  reload$ = this.reload.asObservable();
+  // private reload = new BehaviorSubject<boolean>(false); // true is your initial value
+  // reload$ = this.reload.asObservable();
 
-  constructor(private operatiuniLista: OperatiuniLista, private operatiuniFiltre : OperatiuniFiltre, private router: Router, ){
-    this.operatiuniLista.recuperareLista();
-  }
-  ngOnInit(): void {
-    this.subscription = this.operatiuniFiltre.fixed$
-    .subscribe(fixed => this.isFixed = fixed)
-  }
-  ngOnDestroy(): void {
-    this.operatiuniLista.salvareLista();
-    this.subscription.unsubscribe();
-  }
-  scoateFiltre(){  
-    this.operatiuniFiltre.modificaFiltruFals();
-    this.reload.next(true)
-    this.router.navigate(['/listacumparaturi']);
+  // constructor(private operatiuniLista: OperatiuniLista, private operatiuniFiltre : OperatiuniFiltre, private router: Router, 
+  //   private testAnd:TestAndroid ){
+  //   this.operatiuniLista.recuperareLista();
+  // }
+  // ngOnInit(): void {
+  //   this.subscription = this.operatiuniFiltre.fixed$
+  //   .subscribe(fixed => this.isFixed = fixed)
+  // }
+  // ngOnDestroy(): void {
+  //   this.operatiuniLista.salvareLista();
+  //   this.subscription.unsubscribe();
+  // }
+  // scoateFiltre(){  
+  //   this.operatiuniFiltre.modificaFiltruFals();
+  //   this.reload.next(true)
+  //   this.router.navigate(['/listacumparaturi']);
 
-  }
-  adaugaFiltre(){  
-    this.router.navigate(['/filtre']);
-    this.reload.next(false)
+  // }
+  // adaugaFiltre(){  
+  //   this.router.navigate(['/filtre']);
+  //   this.reload.next(false)
 
-  }
+  // }
 
-  testBack(){
-    
-  }
+  // testBack(){
+  //   this.testAnd.testBack();
+  // }
 }

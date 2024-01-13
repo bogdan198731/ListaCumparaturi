@@ -8,6 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { BunVenitComponent } from "./bun-venit/bun-venit.component";
+import { MenuComponent } from "./menu/menu.component";
 
 @Component({
     selector: 'app-root',
@@ -25,7 +26,8 @@ import { BunVenitComponent } from "./bun-venit/bun-venit.component";
         RouterModule,
         RouterOutlet,
         RouterLink,
-        BunVenitComponent
+        BunVenitComponent,
+        MenuComponent
     ]
 })
 export class AppComponent {

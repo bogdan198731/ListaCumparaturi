@@ -63,8 +63,8 @@ export class FiltreComponent implements OnInit{
       { this.numeLista.push(el.nume)
         this.magazinLista.push(el.magazin)
     })
-    this.numeLista = [... new Set(this.numeLista)];
-    this.magazinLista = [... new Set(this.magazinLista)];
+    this.numeLista = [... new Set(this.numeLista)].sort();
+    this.magazinLista = [... new Set(this.magazinLista)].sort();
     
   }
 
@@ -76,7 +76,6 @@ export class FiltreComponent implements OnInit{
     try{
 
       numeLocal = numeBrut;
-
   }
     catch{
       numeLocal = []

@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { ElementLista } from '../model/elementLista';
 import { OperatiuniLista } from '../servicii/operatiuniLista';
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { OperatiuniFiltre } from '../servicii/operatiuniFiltre';
 import { Subscription } from 'rxjs';
 import { BunVenitComponent } from '../bun-venit/bun-venit.component';
+import { MenuComponent } from '../menu/menu.component';
 
 @Component({
   selector: 'app-lista-cumparaturi',
@@ -18,8 +19,9 @@ import { BunVenitComponent } from '../bun-venit/bun-venit.component';
   imports: [MatListModule, MatTableModule, MatSortModule, CommonModule, NgIf],
   templateUrl: './lista-cumparaturi.component.html',
   styleUrl: './lista-cumparaturi.component.css',
+  providers:[MenuComponent]
 })
-export class ListaCumparaturiComponent implements OnInit, OnDestroy {
+export class ListaCumparaturiComponent implements OnInit, OnDestroy, OnChanges {
   coloane: string[] = [
     'nume',
     'cantitate',
@@ -37,15 +39,21 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
     private operatiuniLista: OperatiuniLista,
     private router: Router,
     private gestiuneFiltre:OperatiuniFiltre,
-    private bunVenitComponent:BunVenitComponent,
+    private menuComponent:MenuComponent,
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('Method not implemented.');
+  }
 
 
   ngOnInit(): void {
+    console.log("lista cumparaturi")
     this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru();
 
-    this.subscription = this.bunVenitComponent.reload$
-    .subscribe(reload => {if(reload){
+    this.subscription = this.menuComponent.reload$
+    .subscribe(reload => {
+      console.log("Reload : ", reload )
+      if(reload){
       this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru()}
     else{
       {this.gestiuneFiltre.filtru = false;
