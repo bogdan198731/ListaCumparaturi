@@ -14,6 +14,7 @@ import { OperatiuniLista } from '../servicii/operatiuniLista';
 import { ElementLista } from '../model/elementLista';
 import { OperatiuniFiltre } from '../servicii/operatiuniFiltre';
 import { ListaCumparaturiComponent } from '../lista-cumparaturi/lista-cumparaturi.component';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Component({
@@ -46,6 +47,7 @@ export class FiltreComponent implements OnInit{
   magazin = new FormControl('');
   magazinSalvat = new FormControl('');
   listaComenzi:ElementLista[] = [];
+
 
   constructor(    private formBilder: FormBuilder,
     private operatiuniLista: OperatiuniLista,

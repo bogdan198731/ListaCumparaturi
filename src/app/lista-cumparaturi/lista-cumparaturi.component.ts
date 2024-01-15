@@ -11,11 +11,13 @@ import { Router } from '@angular/router';
 import { OperatiuniFiltre } from '../servicii/operatiuniFiltre';
 import { Subscription } from 'rxjs';
 import { BunVenitComponent } from '../bun-venit/bun-venit.component';
+import { MenuComponent } from '../menu/menu.component';
 
 @Component({
   selector: 'app-lista-cumparaturi',
   standalone: true,
   imports: [MatListModule, MatTableModule, MatSortModule, CommonModule, NgIf],
+  providers: [MenuComponent, OperatiuniFiltre],
   templateUrl: './lista-cumparaturi.component.html',
   styleUrl: './lista-cumparaturi.component.css',
 })
@@ -31,6 +33,8 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
   public listaComenziSortata = new MatTableDataSource<ElementLista>();
   @ViewChild(MatSort) sort!: MatSort;
   subscription: Subscription = new Subscription();
+  
+  subscriptionMenu: Subscription = new Subscription();
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
     private manipulareLista: OperatiuniLista,
@@ -38,14 +42,18 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
     private router: Router,
     private gestiuneFiltre:OperatiuniFiltre,
     private bunVenitComponent:BunVenitComponent,
+    // private menuComponent:MenuComponent,
   ) {}
 
 
   ngOnInit(): void {
     this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru();
 
+
     this.subscription = this.bunVenitComponent.reload$
-    .subscribe(reload => {if(reload){
+    .subscribe(reload => {
+      console.log("test reload = ", reload )
+      if(reload){
       this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru()}
     else{
       {this.gestiuneFiltre.filtru = false;
@@ -64,8 +72,15 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
       }
     }
     })
+    this.gestiuneFiltre.data$.subscribe(
+      data=> {
+        console.log("data = ", data)
+      }
+    )
   }
-
+  ngAfterViewInit() {
+    this.listaComenziSortata.sort = this.sort;
+  }
 
 
   ngOnDestroy(): void {
@@ -81,9 +96,6 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
   }
 
   modificaStare(id: number) {
-    // this.listaComenziSortata.data
-    //   .filter(a => a.id === id)
-    //   .map(a => (a.gata = !a.gata));
       this.operatiuniLista.modificaStare(id);
   }
 
@@ -93,8 +105,6 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
    
   }
   veziDetali(id:number){
-
     this.router.navigate(['/detalii/'+ id]);
-
   }
 }

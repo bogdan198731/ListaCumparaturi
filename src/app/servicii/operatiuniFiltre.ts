@@ -12,6 +12,9 @@ export class OperatiuniFiltre{
     private fixed = new BehaviorSubject<boolean>(false); // true is your initial value
     fixed$ = this.fixed.asObservable();
 
+    private dataSubject = new BehaviorSubject<boolean>(false);
+    public data$ = this.dataSubject.asObservable();
+    
     alimenteazaNume(nume: string[]){
         this.nume = nume;
     }
@@ -35,4 +38,7 @@ export class OperatiuniFiltre{
         this.alimenteazaNume([])
         this.alimenteazaMagazin([])
     }
+    updateData(newData: boolean) {
+        this.dataSubject.next(newData);
+      }
 }

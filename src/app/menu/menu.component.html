@@ -1,0 +1,17 @@
+<div class="menu">
+    <div>
+        <button class="noButton" routerLink="/listacumparaturi">Lista cumparaturi
+        </button>
+        <button class="noButton" routerLink="/adaugelement">Adaug </button>
+        <button class="noButton" (click)="testBack()">testBack </button>
+    </div>
+    <div>
+        <div *ngIf="isFixed">
+            <button class="noButton" (click)="scoateFiltre()">Elimina Filtre</button>
+        </div>
+        <div *ngIf="!isFixed">
+            <button class="noButton" (click)="adaugaFiltre()">Adauga Filtre</button>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>
