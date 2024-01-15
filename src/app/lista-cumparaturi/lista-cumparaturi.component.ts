@@ -66,7 +66,9 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
     })
   }
 
-
+  ngAfterViewInit() {
+    this.listaComenziSortata.sort = this.sort;
+  }
 
   ngOnDestroy(): void {
     this.operatiuniLista.salvareLista();
