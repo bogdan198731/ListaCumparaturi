@@ -16,6 +16,14 @@
                 }
             </mat-select>
         </mat-form-field>
+        <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select [formControl]="status" multiple>
+                @for (status of statusLista; track status) {
+                <mat-option [value]="status">{{status}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
     </div>
     <div>
         <button (click)="aplicaFiltre()"> Aplica filtre</button>

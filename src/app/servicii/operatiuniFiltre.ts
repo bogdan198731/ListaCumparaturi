@@ -8,6 +8,7 @@ export class OperatiuniFiltre{
 
     nume:string[] = [];
     magazin:string[] = [];
+    status:boolean[] = [];
     filtru:boolean = false;
     private fixed = new BehaviorSubject<boolean>(false); // true is your initial value
     fixed$ = this.fixed.asObservable();
@@ -23,6 +24,12 @@ export class OperatiuniFiltre{
     }
     restituieMagazin() : string[]{
         return this.magazin;
+    }
+    alimenteazaStatus(status: boolean[]){
+        this.status = status;
+    }
+    restituieStatus() : boolean[]{
+        return this.status;
     }
     modificaFiltruAdevarat(){
         this.filtru = true;

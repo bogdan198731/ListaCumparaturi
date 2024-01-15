@@ -61,6 +61,12 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
             comanda => magazin.includes(comanda.magazin)
           )
         }
+        if(this.gestiuneFiltre.restituieStatus().length > 0){
+          const status = this.gestiuneFiltre.restituieStatus();
+          this.listaComenziSortata.data = this.listaComenziSortata.data.filter( 
+            comanda => status.includes(comanda.gata)
+          )
+        }
       }
     }
     })
@@ -83,10 +89,7 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
   }
 
   modificaStare(id: number) {
-    // this.listaComenziSortata.data
-    //   .filter(a => a.id === id)
-    //   .map(a => (a.gata = !a.gata));
-      this.operatiuniLista.modificaStare(id);
+    this.operatiuniLista.modificaStare(id);
   }
 
   sterge(id: number) {

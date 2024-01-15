@@ -40,11 +40,13 @@ import { ListaCumparaturiComponent } from '../lista-cumparaturi/lista-cumparatur
 export class FiltreComponent implements OnInit{
   numeLista:string[] = [];
   magazinLista:string[] = [];
+  statusLista:String[] = [];
 
   nume = new FormControl('');
   numeSalvat = new FormControl('');
   magazin = new FormControl('');
   magazinSalvat = new FormControl('');
+  status = new FormControl('')
   listaComenzi:ElementLista[] = [];
 
   constructor(    private formBilder: FormBuilder,
@@ -58,14 +60,18 @@ export class FiltreComponent implements OnInit{
   ngOnInit(): void {
     this.numeLista = [];
     this.magazinLista = [];
+    this.statusLista = [];
     this.listaComenzi = this.operatiuniLista.retituieListaLucru();
     this.listaComenzi.forEach(el => 
       { this.numeLista.push(el.nume)
         this.magazinLista.push(el.magazin)
+        if (el.gata)
+        {this.statusLista.push("Gasit")}
+      else { this.statusLista.push("Negasit")}
     })
     this.numeLista = [... new Set(this.numeLista)];
     this.magazinLista = [... new Set(this.magazinLista)];
-    
+    this.statusLista = [... new Set(this.statusLista)];
   }
 
   aplicaFiltre(){
@@ -73,6 +79,7 @@ export class FiltreComponent implements OnInit{
     let numeLocal:string[] = [];
     const magazinBrut = this.magazin.value as unknown as string[];
     let magazinLocal:string[] = [];
+    const statusBrut = this.status.value as unknown as string[];
     try{
 
       numeLocal = numeBrut;
@@ -87,9 +94,22 @@ export class FiltreComponent implements OnInit{
     catch{
       magazinLocal = [];
     }
+    try{
+      const statusS = statusBrut.map(
+        status => {if(status==="Gasit")
+        {return true;}
+                return false;}
+
+      )
+      this.gestiuneFiltre.alimenteazaStatus(statusS)
+    }
+    catch{
+      this.gestiuneFiltre.alimenteazaStatus([])
+    }
 
     this.gestiuneFiltre.alimenteazaNume(numeLocal);
     this.gestiuneFiltre.alimenteazaMagazin(magazinLocal);
+    
     this.gestiuneFiltre.filtru = true
     this.gestiuneFiltre.modificaFiltruAdevarat();    
     this.router.navigate(['/listacumparaturi']);
