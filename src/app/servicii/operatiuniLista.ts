@@ -13,6 +13,7 @@ export class OperatiuniLista {
 
   private elementeLista: ElementLista[] = [];
   private elementeListaLucru: ElementLista[] = [];
+  private elementArhiva!:ElementLista;
 
   constructor() { }
 
@@ -50,9 +51,14 @@ export class OperatiuniLista {
   }
   alimenteazaListaLucru(listaLucru:ElementLista[]){
     this.elementeListaLucru = listaLucru;
+    
   }
 
  stergeComanda( id:number){
+  this.elementeListaLucru.filter(index => index.id == id).forEach(
+    el => this.adaugaInArhiva(el)
+  )
+  
   this.elementeListaLucru = this.elementeListaLucru.filter(index => index.id !== id)
   this.salvareLista();
 
@@ -82,5 +88,29 @@ export class OperatiuniLista {
   salvareLista(){
     const comandaJSON = JSON.stringify(this.elementeListaLucru);
     localStorage.setItem('data', comandaJSON);
+  }
+  salvareInMemorieElementArhiva(elArhiva: ElementLista)
+  {
+    this.elementArhiva = elArhiva;
+  }
+  returnareElementArhiva():ElementLista
+  {
+    return this.elementArhiva;
+  }
+  adaugaInArhiva(comanda:ElementLista)
+  {
+    let arhiva:ElementLista[] = []
+    if (localStorage?.getItem('arhiva')) {
+      arhiva = JSON.parse(localStorage.getItem('arhiva')?.valueOf() as string);
+    }
+    arhiva.push(comanda)
+    localStorage.setItem('arhiva', JSON.stringify(arhiva));
+  }
+  recuperareArhiva() : ElementLista[]
+  {
+    if (localStorage?.getItem('arhiva')) {
+      return JSON.parse(localStorage.getItem('arhiva')?.valueOf() as string);
+    }
+    return [];
   }
 }

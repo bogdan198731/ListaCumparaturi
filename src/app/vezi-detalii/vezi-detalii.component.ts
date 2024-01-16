@@ -15,7 +15,7 @@ import { AdaugaInListaComponent } from '../adauga-in-lista/adauga-in-lista.compo
 @Component({
   selector: 'app-vezi-detalii',
   standalone: true,
-  imports: [MatListModule, 
+  imports: [MatListModule,
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
@@ -44,11 +44,12 @@ export class VeziDetaliiComponent implements OnInit {
   };
 
   index = 0;
+  arhiva = false;
 
   private elementeLista: ElementLista[] = [];
 
-  nume = new FormControl('',Validators.required);
-  cantitate = new FormControl('',[Validators.pattern(/^-?([0-9]\d*)?$/), Validators.required]);
+  nume = new FormControl('', Validators.required);
+  cantitate = new FormControl('', [Validators.pattern(/^-?([0-9]\d*)?$/), Validators.required]);
   unitateMasura = new FormControl('');
   magazin = new FormControl('', Validators.required);
   detalii = new FormControl('');
@@ -73,13 +74,25 @@ export class VeziDetaliiComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(
       param => {
-        this.index = Number(param.get("id"))
-        this.comanda = this.operatiuniLista.recuperareComanda(Number(this.index));
-        this.nume.setValue(this.comanda.nume);
-        this.cantitate.setValue(this.comanda.cantitate as unknown as string);
-        this.unitateMasura.setValue(this.comanda.unitateMasura);
-        this.magazin.setValue(this.comanda.magazin);
-        this.detalii.setValue(this.comanda.detalii);
+        if (param.get('id')?.includes('arhiva')) { 
+          this.arhiva = true;
+          this.comanda = this.operatiuniLista.returnareElementArhiva();
+         }
+        else {
+          this.index = Number(param.get("id"))
+          this.comanda = this.operatiuniLista.recuperareComanda(Number(this.index));
+          this.arhiva = false;
+        }
+        try{          
+          this.nume.setValue(this.comanda.nume);
+          this.cantitate.setValue(this.comanda.cantitate as unknown as string);
+          this.unitateMasura.setValue(this.comanda.unitateMasura);
+          this.magazin.setValue(this.comanda.magazin);
+          this.detalii.setValue(this.comanda.detalii);
+        }
+        catch{
+          console.error(param.get('id'), ' element cu probleme')
+        }
       }
     );
 

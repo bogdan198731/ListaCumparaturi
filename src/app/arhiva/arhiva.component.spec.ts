@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BunVenitComponent } from './bun-venit.component';
+import { ArhivaComponent } from './arhiva.component';
 
-describe('BunVenitComponent', () => {
-  let component: BunVenitComponent;
-  let fixture: ComponentFixture<BunVenitComponent>;
+describe('ArhivaComponent', () => {
+  let component: ArhivaComponent;
+  let fixture: ComponentFixture<ArhivaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BunVenitComponent]
+      imports: [ArhivaComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(BunVenitComponent);
+    fixture = TestBed.createComponent(ArhivaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

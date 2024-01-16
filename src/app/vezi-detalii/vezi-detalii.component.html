@@ -22,7 +22,7 @@
             <mat-label>Detalii</mat-label>
             <input matInput [formControl]="detalii" />
         </mat-form-field>
-        <div class="butonAdd">
+        <div class="butonAdd" *ngIf="!arhiva">
             <button class="center" (click)="modificComanda()">Actualizare Comanda</button>
         </div>
     </form>

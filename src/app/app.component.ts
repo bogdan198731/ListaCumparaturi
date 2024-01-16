@@ -7,7 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
-import { BunVenitComponent } from "./bun-venit/bun-venit.component";
+import { RouterComponent } from "./router/router.component";
 
 @Component({
     selector: 'app-root',
@@ -25,7 +25,7 @@ import { BunVenitComponent } from "./bun-venit/bun-venit.component";
         RouterModule,
         RouterOutlet,
         RouterLink,
-        BunVenitComponent
+        RouterComponent
     ]
 })
 export class AppComponent {

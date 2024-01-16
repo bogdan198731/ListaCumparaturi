@@ -10,7 +10,7 @@ import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { OperatiuniFiltre } from '../servicii/operatiuniFiltre';
 import { Subscription } from 'rxjs';
-import { BunVenitComponent } from '../bun-venit/bun-venit.component';
+import { RouterComponent } from '../router/router.component';
 
 @Component({
   selector: 'app-lista-cumparaturi',
@@ -37,14 +37,14 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
     private operatiuniLista: OperatiuniLista,
     private router: Router,
     private gestiuneFiltre:OperatiuniFiltre,
-    private bunVenitComponent:BunVenitComponent,
+    private routerComponent:RouterComponent,
   ) {}
 
 
   ngOnInit(): void {
     this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru();
 
-    this.subscription = this.bunVenitComponent.reload$
+    this.subscription = this.routerComponent.reload$
     .subscribe(reload => {if(reload){
       this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru()}
     else{
