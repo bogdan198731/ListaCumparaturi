@@ -14,6 +14,7 @@ import { OperatiuniLista } from '../servicii/operatiuniLista';
 import { ElementLista } from '../model/elementLista';
 import { OperatiuniFiltre } from '../servicii/operatiuniFiltre';
 import { ListaCumparaturiComponent } from '../lista-cumparaturi/lista-cumparaturi.component';
+import { CustomStringSort } from '../utile/custom-string-sort';
 
 
 @Component({
@@ -31,6 +32,7 @@ import { ListaCumparaturiComponent } from '../lista-cumparaturi/lista-cumparatur
     CommonModule,
     MatSelectModule,
     ReactiveFormsModule,
+    
     forwardRef(() => FiltreComponent),
   ],
   templateUrl: './filtre.component.html',
@@ -40,7 +42,7 @@ import { ListaCumparaturiComponent } from '../lista-cumparaturi/lista-cumparatur
 export class FiltreComponent implements OnInit{
   numeLista:string[] = [];
   magazinLista:string[] = [];
-  statusLista:String[] = [];
+  statusLista:string[] = [];
 
   nume = new FormControl('');
   numeSalvat = new FormControl('');
@@ -53,7 +55,7 @@ export class FiltreComponent implements OnInit{
     private operatiuniLista: OperatiuniLista,
     private router: Router,
     private gestiuneFiltre:OperatiuniFiltre,
-
+    private customStringSort :CustomStringSort,
     ){
 
   }
@@ -69,9 +71,13 @@ export class FiltreComponent implements OnInit{
         {this.statusLista.push("Gasit")}
       else { this.statusLista.push("Negasit")}
     })
-    this.numeLista = [... new Set(this.numeLista)];
-    this.magazinLista = [... new Set(this.magazinLista)];
-    this.statusLista = [... new Set(this.statusLista)];
+    this.numeLista = CustomStringSort.sortByPriority(
+       [... new Set(this.numeLista)]);
+    
+    this.magazinLista = CustomStringSort.sortByPriority(
+      [... new Set(this.magazinLista)]);
+    this.statusLista = CustomStringSort.sortByPriority
+    ([... new Set(this.statusLista)]);
   }
 
   aplicaFiltre(){

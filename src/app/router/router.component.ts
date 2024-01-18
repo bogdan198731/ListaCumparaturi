@@ -58,7 +58,4 @@ export class RouterComponent implements OnInit, OnDestroy{
 
   }
 
-  testBack(){
-    
-  }
 }

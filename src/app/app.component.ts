@@ -8,6 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { RouterComponent } from "./router/router.component";
+import { HamburgerMenuComponent } from "./hamburger-menu/hamburger-menu.component";
 
 @Component({
     selector: 'app-root',
@@ -25,7 +26,8 @@ import { RouterComponent } from "./router/router.component";
         RouterModule,
         RouterOutlet,
         RouterLink,
-        RouterComponent
+        RouterComponent,
+        HamburgerMenuComponent
     ]
 })
 export class AppComponent {

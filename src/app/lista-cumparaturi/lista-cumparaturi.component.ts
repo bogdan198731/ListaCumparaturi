@@ -7,17 +7,18 @@ import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { NgIf } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { OperatiuniFiltre } from '../servicii/operatiuniFiltre';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { RouterComponent } from '../router/router.component';
 
 @Component({
   selector: 'app-lista-cumparaturi',
   standalone: true,
-  imports: [MatListModule, MatTableModule, MatSortModule, CommonModule, NgIf],
+  imports: [MatListModule, MatTableModule, MatSortModule, CommonModule, NgIf,
+    RouterLink],
   templateUrl: './lista-cumparaturi.component.html',
-  styleUrl: './lista-cumparaturi.component.css',
+  styleUrl: './lista-cumparaturi.component.scss',
 })
 export class ListaCumparaturiComponent implements OnInit, OnDestroy {
   coloane: string[] = [
@@ -28,6 +29,11 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
     'gata',
     'sterge',
   ];
+  isFixed: boolean = false;
+  // subscription: Subscription = new Subscription();
+
+  private reload = new BehaviorSubject<boolean>(false); // true is your initial value
+  reload$ = this.reload.asObservable();
   public listaComenziSortata = new MatTableDataSource<ElementLista>();
   @ViewChild(MatSort) sort!: MatSort;
   subscription: Subscription = new Subscription();
@@ -38,6 +44,7 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
     private router: Router,
     private gestiuneFiltre:OperatiuniFiltre,
     private routerComponent:RouterComponent,
+    private operatiuniFiltre : OperatiuniFiltre
   ) {}
 
 
@@ -45,9 +52,7 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
     this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru();
 
     this.subscription = this.routerComponent.reload$
-    .subscribe(reload => {if(reload){
-      this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru()}
-    else{
+    .subscribe(reload => {if(!reload){
       {this.gestiuneFiltre.filtru = false;
         if(this.gestiuneFiltre.restituieNume().length > 0)
         { const nume = this.gestiuneFiltre.restituieNume();
@@ -70,6 +75,8 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
       }
     }
     })
+    this.subscription = this.operatiuniFiltre.fixed$
+    .subscribe(fixed => this.isFixed = fixed)
   }
 
   ngAfterViewInit() {
@@ -95,11 +102,18 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
   sterge(id: number) {
     this.operatiuniLista.stergeComanda(id); 
     this.listaComenziSortata.data = this.operatiuniLista.retituieListaLucru()
-   
   }
   veziDetali(id:number){
-
     this.router.navigate(['/detalii/'+ id]);
-
+  }
+  scoateFiltre(){  
+    this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru()
+    this.operatiuniFiltre.modificaFiltruFals();
+    this.reload.next(true)
+    this.router.navigate(['/listacumparaturi']);
+  }
+  adaugaFiltre(){  
+    this.router.navigate(['/filtre']);
+    this.reload.next(false)
   }
 }
