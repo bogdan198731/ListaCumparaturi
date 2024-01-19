@@ -92,8 +92,9 @@ export class AdaugaInListaComponent {
       updateOn: 'change',
     }
   );
-
+  
   adaugInLista() {
+  
     if (localStorage?.getItem('index')) {
       this.index = Number(localStorage?.getItem('index')) + 1;
     } else {

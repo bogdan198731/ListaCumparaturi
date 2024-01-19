@@ -6,6 +6,7 @@ import { VeziDetaliiComponent } from './vezi-detalii/vezi-detalii.component';
 import { FiltreComponent } from './filtre/filtre.component';
 import { BunVenitComponent } from './bun-venit/bun-venit.component';
 import { ArhivaComponent } from './arhiva/arhiva.component';
+import { CreareListaProprieComponent } from './creare-lista-proprie/creare-lista-proprie.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/bunvenit', pathMatch: 'full' },
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path: 'detalii/:id', component:VeziDetaliiComponent},
   { path: 'detalii/:arhiva/:id', component:VeziDetaliiComponent},
   { path: 'filtre', component: FiltreComponent},
-  { path: 'arhiva', component : ArhivaComponent}
+  { path: 'arhiva', component : ArhivaComponent},
+  { path: 'crearelista', component : CreareListaProprieComponent}
 ];

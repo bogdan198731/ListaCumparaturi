@@ -1,1 +1,18 @@
-<p>creare-lista-proprie works!</p>
+<form [formGroup]="numeListaSpecifica" class="ecran">
+    <span> Nume Lista</span>
+    <mat-form-field>
+        <mat-label>Nume</mat-label>
+        <input matInput [formControl]="nume" />
+    </mat-form-field>
+</form>
+<div *ngFor="let form of formularDinamic; let i = index">
+    <form [formGroup]="form" class="camp">
+        <div>
+            <label>Nume Camp</label>
+            <input formControlName="numeCamp" />
+        </div>
+        <button type="button" (click)="stergeCamp(i)">Sterge</button>
+    </form>
+</div>
+<button type="button" (click)="adaugaCamp()">Adaugare camp</button>
+<button type="button" (click)="creareListNoua()">Creaza lista</button>
