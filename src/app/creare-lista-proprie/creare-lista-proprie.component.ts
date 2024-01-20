@@ -6,7 +6,7 @@ import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } fr
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { ListePArticulare } from '../servicii/listeParticulare';
+import { ListeParticulare } from '../servicii/listeParticulare';
 import { ListaParticulara } from '../model/listaParticulara'
 
 @Component({
@@ -48,7 +48,7 @@ export class CreareListaProprieComponent implements OnInit{
     lista: new Map()
   }
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private listeParticulare:ListeParticulare) { }
   nume = new FormControl('',Validators.required);
   public numeListaSpecifica: FormGroup = this.formBuilder.group(
     {
@@ -120,5 +120,6 @@ export class CreareListaProprieComponent implements OnInit{
       }
     }
     console.log("test noua : ", this.listaSpecifica)
+    this.listeParticulare.adaugareListaParticularaNoua(this.listaSpecifica);
   }
 }

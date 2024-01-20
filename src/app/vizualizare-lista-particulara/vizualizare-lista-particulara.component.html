@@ -1,0 +1,14 @@
+<div class="menu">
+    <div class="buton-menu">
+        <button class="menu-no-Button" (click)="test()" routerLink="/adaugareElementListaParticulara/nume">Adaug
+        </button>
+    </div>
+    <div class="buton-menu">
+        <div *ngIf="isFixed">
+            <button class="menu-no-Button" (click)="scoateFiltre()">Elimina Filtre</button>
+        </div>
+        <div *ngIf="!isFixed">
+            <button class="menu-no-Button" (click)="adaugaFiltre()">Filtre</button>
+        </div>
+    </div>
+</div>
