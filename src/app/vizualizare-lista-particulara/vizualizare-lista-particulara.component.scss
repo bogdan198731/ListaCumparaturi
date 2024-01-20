@@ -1,0 +1,71 @@
+table {
+    width: 100%;
+  }
+  
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+  button{
+    height: 2rem;
+    width: 100%;
+  }
+  .button-gasit{
+    background-color: green;
+  }
+  .button-negasit{
+    background-color: violet;
+  }
+  
+  .button-close{
+    background-color: red;
+  }
+  .noButton{
+    background-color: inherit;
+    border:none;
+  }
+  
+  .button-close:hover {
+    height: 110%;
+  }
+  tr:nth-child(even){
+    background-color: aqua;
+    border: auto;
+  }
+  mat-menu {
+    background-color: rgb(69, 190, 98);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .menu{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-left: 0.5rem;
+  }
+  
+  .menu-no-Button{
+    background-color: inherit;
+    margin-right:  1.3rem;
+    font-weight: 800;
+  }
+  .buton-menu{
+    margin-right: 1.3rem;
+  }
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+.table-dinamic{
+    background-color: white;
+    tr:nth-child(even){
+        background-color: aqua;
+        border: auto;
+    }
+}
+  

@@ -13,11 +13,9 @@ import { NgIf } from '@angular/common';
 })
 export class VizualizareListaParticularaComponent implements OnInit{
   isFixed: boolean = false;
-  listaParticulara:ListaParticulara = {
-    id: 0,
-    nume: '',
-    lista: new Map()
-  }
+  listaParticulara:Array<Map<string,string>> = [];
+  tableContainer = document.getElementById("table-container");
+  nume : string = ''
   struncturaLista:Map<number,string> = new Map;
 
   constructor(private route: ActivatedRoute ,private router: Router, private listeParticulare:ListeParticulare){
@@ -27,8 +25,14 @@ export class VizualizareListaParticularaComponent implements OnInit{
     this.route.paramMap.subscribe(
       param => {
         console.log(param.get("nume"))
+        this.nume = String(param.get("nume"));
         this.struncturaLista =  this.listeParticulare.recuperareStructuraListaParticulara(String(param.get("nume")))
-        console.log("strunctura : ", this.struncturaLista)
+        this.listaParticulara = this.listeParticulare.recuperareComponenteListaParticulara(this.nume);
+        this.tableContainer = document.getElementById("table-container");
+        this.tableContainer?.setAttribute("class", "table-dinamic")
+        // this.tableContainer?.setAttribute("class", "table")
+        // table, th, td
+        this.creareTabela(this.listaParticulara);
       }
     )
   }
@@ -45,4 +49,38 @@ export class VizualizareListaParticularaComponent implements OnInit{
   test(){
     console.log("Apasat")
   }
+  createTableFromArrayofMaps(arrayOfMaps: Array<Map<string, any>>): HTMLElement {
+    if (arrayOfMaps.length === 0) return document.createElement("div");
+
+    // Create the table element
+    const table = document.createElement("table");
+
+    // Add a header row
+    const headerRow = table.insertRow();
+    arrayOfMaps[0].forEach((_, key) => {
+        const headerCell = document.createElement("th");
+        headerCell.textContent = key;
+        headerRow.appendChild(headerCell);
+    });
+
+    // Iterate over the array of maps and add rows to the table
+    arrayOfMaps.forEach(map => {
+        const row = table.insertRow();
+        map.forEach((value, key) => {
+            const cell = row.insertCell();
+            cell.textContent = value.toString();
+        });
+    });
+
+    return table;
+}
+
+// Usage
+
+creareTabela(listaParticulara:Array<Map<string,string>>){
+if (this.tableContainer) {
+    const table = this.createTableFromArrayofMaps(listaParticulara);
+    this.tableContainer.appendChild(table);
+}
+}
 }

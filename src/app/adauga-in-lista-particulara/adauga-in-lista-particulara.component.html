@@ -1,29 +1,13 @@
 <div>
     <h2>Adauga cumparaturi</h2>
-    <form [formGroup]="formularComanda" class="ecran">
-        <mat-form-field>
-            <mat-label>Nume</mat-label>
-            <input matInput [formControl]="camp1" />
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Cantitate</mat-label>
-            <input matInput [formControl]="camp2" type="text" />
-            <div *ngIf="camp2.errors?.['pattern']">Cantitatea trebuie sa fie numerica.</div>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Unitate masura</mat-label>
-            <input matInput [formControl]="camp3" />
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Magazin</mat-label>
-            <input matInput [formControl]="camp4" />
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Detalii</mat-label>
-            <input matInput [formControl]="camp5" />
-        </mat-form-field>
+    <form [formGroup]="myForm" (ngSubmit)="adaugInLista()" class="ecran">
+        <div *ngFor="let key of objectKeys(myForm.controls)">
+            <label>{{key}}</label>
+            <input type="text" [formControlName]="key">
+        </div>
         <div class="butonAdd">
-            <button [disabled]="!formularComanda.valid" class="center" (click)="adaugInLista()">Adauga in lista</button>
+            <button type="submit" class="center">Adauga in lista</button>
+            <!-- <button type="submit" [disabled]="!formularComanda.valid" class="center">Adauga in lista</button> -->
         </div>
     </form>
 </div>

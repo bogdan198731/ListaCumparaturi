@@ -66,8 +66,23 @@ export class ListeParticulare {
 
 
     }
-    salvareListaParticulara(listaParticulara: ListaParticulara) {
+    recuperareComponenteListaParticulara(nume: string) : Map<string, string>[]{
+        if(localStorage.getItem(nume + 'componente'))
+        { const retrievedData = localStorage.getItem(nume+ 'componente') as string;
+            const deserializedArray = JSON.parse(retrievedData) as Array<[string, string][]>;
+            const arrayOfMaps: Array<Map<string, string>> = deserializedArray.map(entries => new Map(entries));
+            return arrayOfMaps
+        }
+        else{
+            return [];
+        }
 
+
+    }
+    salvareComponeneteListaParticulara(nume:string, componenteListaParticulara: Array<Map<string,string>>) {
+        console.log("componenteListaParticulara : ", componenteListaParticulara)
+        const serializableArray = componenteListaParticulara.map(map => Array.from(map.entries())); 
+        localStorage.setItem(nume+"componente", JSON.stringify(serializableArray));
     }
     salavreListeParticulare(numeLista: string) {
         this.listeParticulare = this.recuperareListaListeParticulare()

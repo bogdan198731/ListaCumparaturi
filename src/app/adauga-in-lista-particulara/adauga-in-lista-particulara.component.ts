@@ -1,4 +1,4 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, OnInit, forwardRef } from '@angular/core';
 import {
   MatDialogTitle,
   MatDialogContent,
@@ -23,7 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { ElementLista } from '../model/elementLista';
 import { OperatiuniLista } from '../servicii/operatiuniLista';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ListeParticulare } from '../servicii/listeParticulare';
 
 
@@ -45,48 +45,40 @@ import { ListeParticulare } from '../servicii/listeParticulare';
   templateUrl: './adauga-in-lista-particulara.component.html',
   styleUrl: './adauga-in-lista-particulara.component.scss'
 })
-export class AdaugaInListaParticularaComponent {
+export class AdaugaInListaParticularaComponent implements OnInit{
 
-  private elementLista: ElementLista = {
-    id: 0,
-    nume: '',
-    cantitate: 0,
-    unitateMasura: '',
-    magazin: '',
-    gata: false,
-    detalii: ',',
-  };
+
 
   index = 0;
+  nume = ''
+  struncturaLista:Map<number,string> = new Map;
+  listaParticulara:Array<Map<string,string>> = [];
+  comandaParticulara:Map<string,string> = new Map();
 
-  private elementeLista: ElementLista[] = [];
-
-  camp1 = new FormControl('',Validators.required);
-  camp2 = new FormControl('', [Validators.required]);
-  camp3 = new FormControl('');
-  camp4 = new FormControl('', Validators.required);
-  camp5 = new FormControl('');
-
+  myForm!: FormGroup;
+  objectKeys = Object.keys;
+  
   constructor(
     private formBilder: FormBuilder,
     private operatiuniLista: OperatiuniLista,
     private router: Router,
     private listeParticulare :ListeParticulare,
+    private route: ActivatedRoute
   ) { 
+    
+  }
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(
+      param => {
+        console.log(param.get("nume"))
+        this.nume = param.get("nume") as string;
+        this.struncturaLista =  this.listeParticulare.recuperareStructuraListaParticulara(String(param.get("nume")))
+        console.log("strunctura : ", this.struncturaLista)
+        this.myForm = this.createFormGroup()
+      }
+    )
   }
 
-  public formularComanda: FormGroup = this.formBilder.group(
-    {
-      nume: this.camp1,
-      cantitate: this.camp2,
-      unitateMasura: this.camp3,
-      magazin: this.camp4,
-      detalii: this.camp5,
-    },
-    {
-      updateOn: 'change',
-    }
-  );
   
   adaugInLista() {
   
@@ -96,20 +88,29 @@ export class AdaugaInListaParticularaComponent {
       this.index = 1;
     }
 
-
-    this.elementLista.nume = this.formularComanda.get('camp1')?.value;
-    this.elementLista.cantitate = this.formularComanda.get('camp2')?.value;
-    this.elementLista.unitateMasura =
-      this.formularComanda.get('camp3')?.value;
-    this.elementLista.magazin = this.formularComanda.get('camp4')?.value;
-    this.elementLista.detalii = this.formularComanda.get('camp5')?.value;
-    this.elementLista.gata = false;
-    this.elementLista.id = this.index;
-    localStorage.setItem('index', this.index.toString());
-    // this.elementeLista.push(this.elementLista);
-
-    this.operatiuniLista.adaugaInLista(this.elementLista);
-    this.router.navigate(['/listacumparaturi']);
+    console.log(this.myForm.value);
+    this.listaParticulara = this.listeParticulare.recuperareComponenteListaParticulara(this.nume);
+    console.log("listaParticulara = ", this.listaParticulara)
+    this.struncturaLista.forEach(key => {
+      this.comandaParticulara.set(key, this.myForm.get(key)?.value);
+      console.log("key : ", key, " value : ", this.myForm.get(key)?.value)
+    });
+    this.listaParticulara.push(this.comandaParticulara)
+    console.log("this.listaParticulara : ",this.listaParticulara)
+    this.listeParticulare.salvareComponeneteListaParticulara(this.nume,this.listaParticulara)
+    this.router.navigate(['/listaParticulara/',this.nume]);
   }
+  
+  createFormGroup() {
+    const group: any = {};
+    this.struncturaLista.forEach(key => {
+      group[key] = new FormControl(this.struncturaLista.get(Number(key)));
+      console.log("key : ", key)
+    });
+    return new FormGroup(group);
+  }
+  // onSubmit() {
+  //   console.log(this.myForm.value);
+  // }
 }
 
