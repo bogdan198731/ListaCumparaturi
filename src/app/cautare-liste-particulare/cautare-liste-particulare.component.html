@@ -1,8 +1,11 @@
 <div *ngIf="numeListeParticulare.length">
-    Listele create de dumneavostra sunt
-    <div *ngFor="let nume of numeListeParticulare; let i = index">
-        <button routerLink="/listaParticulara/{{nume}}"> {{nume}}</button>
+    <h2 class="center">Listele create de dumneavostra sunt : </h2>
+    <div class="liste-container">
+        <div *ngFor="let nume of numeListeParticulare; let i = index" class="liste">
+            <button routerLink="/listaParticulara/{{nume}}"> {{nume}}</button>
+        </div>
     </div>
+
 </div>
 <div *ngIf="!numeListeParticulare.length">
     Nu ati creat nici o lista

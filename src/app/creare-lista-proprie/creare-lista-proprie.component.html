@@ -1,18 +1,29 @@
-<form [formGroup]="numeListaSpecifica" class="ecran">
-    <span> Nume Lista</span>
-    <mat-form-field>
-        <mat-label>Nume</mat-label>
-        <input matInput [formControl]="nume" />
-    </mat-form-field>
-</form>
-<div *ngFor="let form of formularDinamic; let i = index">
-    <form [formGroup]="form" class="camp">
-        <div>
-            <label>Nume Camp</label>
-            <input formControlName="numeCamp" />
-        </div>
-        <button type="button" (click)="stergeCamp(i)">Sterge</button>
+<div class="creare-lista-proprie">
+    <h2> Creare lista proprie</h2>
+    <form [formGroup]="numeListaSpecifica" class="ecran">
+        <mat-form-field>
+            <mat-label>Nume lista</mat-label>
+            <input matInput [formControl]="nume" />
+        </mat-form-field>
     </form>
+    <div *ngFor="let form of formularDinamic; let i = index" class="camp">
+        <form [formGroup]="form" class="camp">
+            <div>
+                <!-- <mat-label>Nume coloana {{i}} </mat-label> -->
+                <input formControlName="numeCamp" placeholder="Denumiti coloana {{i}}" class="input-nume" />
+            </div>
+            <!-- <button type="button" (click)="togleCamp(i)">{{optiune}}</button> -->
+            <button type="button" (click)="stergeCamp(i)">Sterge</button>
+        </form>
+    </div>
+    <span *ngIf="!numeListaSpecifica.valid || !formularDinamic[0].valid">Numele si cel putin un camp trebuiesc
+        alimentate</span>
+    <div class="butoane-jos">
+
+        <button type="button" (click)="adaugaCamp()" class="butoan-jos">Adaugare camp</button>
+        <button type="button" (click)="creareListNoua()" class="butoan-jos"
+            [disabled]="!numeListaSpecifica.valid || !formularDinamic[0].valid">
+            Creaza lista
+        </button>
+    </div>
 </div>
-<button type="button" (click)="adaugaCamp()">Adaugare camp</button>
-<button type="button" (click)="creareListNoua()">Creaza lista</button>

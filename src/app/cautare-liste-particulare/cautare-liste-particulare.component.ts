@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [NgIf, NgFor, RouterLink],
   templateUrl: './cautare-liste-particulare.component.html',
-  styleUrl: './cautare-liste-particulare.component.css'
+  styleUrl: './cautare-liste-particulare.component.scss'
 })
 export class CautareListeParticulareComponent implements OnInit{
 

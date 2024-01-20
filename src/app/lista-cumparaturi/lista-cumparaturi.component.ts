@@ -50,7 +50,6 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru();
-
     this.subscription = this.routerComponent.reload$
     .subscribe(reload => {if(!reload){
       {this.gestiuneFiltre.filtru = false;

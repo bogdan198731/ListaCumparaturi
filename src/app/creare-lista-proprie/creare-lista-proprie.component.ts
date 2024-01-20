@@ -8,6 +8,7 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ListeParticulare } from '../servicii/listeParticulare';
 import { ListaParticulara } from '../model/listaParticulara'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-creare-lista-proprie',
@@ -47,8 +48,12 @@ export class CreareListaProprieComponent implements OnInit{
     nume: '',
     lista: new Map()
   }
+test = "de ce ";
+index = 0;
+optiune :string = "Facultativ";
 
-  constructor(private formBuilder: FormBuilder, private listeParticulare:ListeParticulare) { }
+  constructor(private formBuilder: FormBuilder, private listeParticulare:ListeParticulare, 
+    private router: Router,) { }
   nume = new FormControl('',Validators.required);
   public numeListaSpecifica: FormGroup = this.formBuilder.group(
     {
@@ -58,68 +63,43 @@ export class CreareListaProprieComponent implements OnInit{
       updateOn: 'change',
     }
   );
-  // nume = new FormControl('',Validators.required);
-  cantitate = new FormControl('', [Validators.pattern(/^-?([0-9]\d*)?$/), Validators.required]);
-  unitateMasura = new FormControl('');
-  magazin = new FormControl('', Validators.required);
-  detalii = new FormControl('');
-  public formularComanda: FormGroup = this.formBuilder.group(
-    {
-      nume: this.nume,
-      cantitate: this.cantitate,
-      unitateMasura: this.unitateMasura,
-      magazin: this.magazin,
-      detalii: this.detalii,
-    },
-    {
-      updateOn: 'change',
-    }
-  );
-  ngOnInit(): void {
 
+  ngOnInit(): void {
+    this.optiune = "Facultativ"
     this.adaugaCamp()
-    this.adaugaCamp2()
-  }
-  adaugaCamp2() {
-    let nume = new FormControl('',Validators.required);
-    // const newForm = this.formBuilder.add({
-      // Define your form controls here
-    //   numeCamp: ['', Validators.required],
-    // });
-    this.formularComanda.addControl('test', this.magazin);
   }
   adaugaCamp() {
+    this.index++;
+    console.log("index = ", this.index)
     const newForm = this.formBuilder.group({
-      // Define your form controls here
       numeCamp: ['', Validators.required],
     });
     this.formularDinamic.push(newForm);
   }
 
     stergeCamp(index: number) {
+      this.index--;
       this.formularDinamic.splice(index, 1);
+    }
+    togleCamp(index: number){
+      
+    this.optiune = "Obligatoriu"
     }
 
   creareListNoua() {
     console.log("nume lista : ", this.nume.value)
     this.listaSpecifica.nume = this.nume.value as string;
     let index = 0;
-    // let map :Map<number,string> = new Map();
     for (const form of this.formularDinamic.values()) {
       if (form.valid) {
-        const val = form.value;
-        
-        console.log('Form submitted:', form.get('numeCamp')?.value);
-        
-        
+        const val = form.value;   
         this.listaSpecifica.lista.set(index++, form.get('numeCamp')?.value);
-      
-        
       } else {
         console.log('Form is invalid');
       }
     }
     console.log("test noua : ", this.listaSpecifica)
     this.listeParticulare.adaugareListaParticularaNoua(this.listaSpecifica);
+    this.router.navigate(['/vizualizareListeParticulare']);
   }
 }
