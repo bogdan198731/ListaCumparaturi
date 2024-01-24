@@ -120,17 +120,7 @@ export class VizualizareListaParticularaComponent implements OnInit{
       })
       console.log("coloane : ",this.coloane)
       let lista:string[][] = [];
-      // i = 0;
-      // this.listaParticulara.forEach(
-      //   (key,value) =>{
-      //     console.log("key = ", key, " value = ", value)
-      //     key.forEach(
-      //       el =>
-      //     // lista[i].push(el)
-      //     console.log("el : ", el)
-      //     )
-      //   }
-      // )
+ 
       this.listaComenziSortata.data = this.listaParticulara.map(map => {
         const obj: any = {};
         map.forEach((value, key) => {

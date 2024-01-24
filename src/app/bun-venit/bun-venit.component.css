@@ -1,0 +1,19 @@
+h1{
+    margin-left: 4rem;
+}
+p{
+    margin-left: 2rem;
+    margin-right: 2rem;
+    word-wrap: normal;
+    font-size: 1.2rem;
+}
+.bun-venit{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+
+}
+button{
+    margin-bottom: 0.5rem;
+}

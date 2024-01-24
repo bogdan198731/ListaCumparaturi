@@ -1,6 +1,6 @@
 <div class="creare-lista-proprie">
     <h2> Creare lista proprie</h2>
-    <form [formGroup]="numeListaSpecifica" class="ecran">
+    <form [formGroup]="numeListaSpecifica">
         <mat-form-field>
             <mat-label>Nume lista</mat-label>
             <input matInput [formControl]="nume" />
@@ -13,15 +13,17 @@
                 <input formControlName="numeCamp" placeholder="Denumiti coloana {{i}}" class="input-nume" />
             </div>
             <!-- <button type="button" (click)="togleCamp(i)">{{optiune}}</button> -->
-            <button type="button" (click)="stergeCamp(i)">Sterge</button>
+            <button type="button" (click)="stergeCamp(i)" class="button-3d">Sterge</button>
         </form>
     </div>
     <span *ngIf="!numeListaSpecifica.valid || !formularDinamic[0].valid">Numele si cel putin un camp trebuiesc
         alimentate</span>
     <div class="butoane-jos">
 
-        <button type="button" (click)="adaugaCamp()" class="butoan-jos">Adaugare camp</button>
-        <button type="button" (click)="creareListNoua()" class="butoan-jos"
+        <button type="button" (click)="adaugaCamp()" class="button-3d">Adaugare camp</button>
+        <button type="button" (click)="creareListNoua()" [className]="" class=""
+            [class.button-3d]="numeListaSpecifica.valid || formularDinamic[0].valid"
+            [class.button-3d-disabled]="!numeListaSpecifica.valid || !formularDinamic[0].valid"
             [disabled]="!numeListaSpecifica.valid || !formularDinamic[0].valid">
             Creaza lista
         </button>

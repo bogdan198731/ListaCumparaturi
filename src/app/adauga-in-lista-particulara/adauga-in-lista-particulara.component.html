@@ -1,12 +1,26 @@
 <div>
-    <h2>Adauga cumparaturi</h2>
+    <h2>Adauga element in lista {{nume}}</h2>
     <form [formGroup]="myForm" (ngSubmit)="adaugInLista()" class="ecran">
-        <div *ngFor="let key of objectKeys(myForm.controls)">
-            <label>{{key}}</label>
-            <input type="text" [formControlName]="key">
-        </div>
+        <table>
+            <!-- <tr>
+                <th>
+                    Nume
+                </th>
+                <th>
+                    Valoare
+                </th>
+            </tr> -->
+            <tr *ngFor="let key of objectKeys(myForm.controls)">
+                <td>
+                    <label>{{key}}</label>
+                </td>
+                <td>
+                    <input class="input-nume" type="text" [formControlName]="key">
+                </td>
+            </tr>
+        </table>
         <div class="butonAdd">
-            <button type="submit" class="center">Adauga in lista</button>
+            <button type="submit" class="center button-3d">Adauga in lista</button>
             <!-- <button type="submit" [disabled]="!formularComanda.valid" class="center">Adauga in lista</button> -->
         </div>
     </form>

@@ -1,14 +1,14 @@
 <div class="menu">
     <div class="buton-menu">
-        <button class="menu-no-Button" (click)="test()" routerLink="/adaugareElementListaParticulara/{{nume}}">Adaug
+        <button class="button-3d" (click)="test()" routerLink="/adaugareElementListaParticulara/{{nume}}">Adaug
         </button>
     </div>
     <div class="buton-menu">
         <div *ngIf="isFixed">
-            <button class="menu-no-Button" (click)="scoateFiltre()">Elimina Filtre</button>
+            <button class="button-3d" (click)="scoateFiltre()">Elimina Filtre</button>
         </div>
         <div *ngIf="!isFixed">
-            <button class="menu-no-Button" (click)="adaugaFiltre()">Filtre</button>
+            <button class="button-3d" (click)="adaugaFiltre()">Filtre</button>
         </div>
     </div>
 </div>
@@ -19,7 +19,7 @@
 
 
 <h1>
-    Test
+    &nbsp; Lista : {{nume}}
 </h1>
 <div *ngIf="listaComenziSortata">
     <table mat-table [dataSource]="listaComenziSortata" matSort (matSortChange)="announceSortChange($event)"

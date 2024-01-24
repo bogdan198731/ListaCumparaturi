@@ -1,5 +1,7 @@
 table {
   width: 100%;
+  background-color: #555555;
+  color: white
 }
 
 th.mat-sort-header-sorted {
@@ -10,10 +12,12 @@ button{
   width: 100%;
 }
 .button-gasit{
-  background-color: green;
+  background-color: #81b29a;
+  font-size: 0.8rem;
 }
 .button-negasit{
-  background-color: violet;
+  background-color: #e07a5f;
+  font-size: 0.8rem;
 }
 
 .button-close{
@@ -27,16 +31,19 @@ button{
 .button-close:hover {
   height: 110%;
 }
-tr:nth-child(even){
+tr:nth-child(odd){
   background-color: aqua;
+  background-color: #f9f9f9;
+  background-color: #ffffff;
   border: auto;
 }
-// mat-menu {
-//   background-color: rgb(69, 190, 98);
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-around;
-// }
+tr:nth-child(even){
+  background-color: aqua;
+  background-color: #f9f9f9;
+  background-color: #eaeaea;
+  border: auto;
+}
+
 .menu{
   display: flex;
   flex-direction: row;
@@ -45,11 +52,31 @@ tr:nth-child(even){
   margin-left: 0.5rem;
 }
 
-.menu-no-Button{
+.menu-no-Button {
   background-color: inherit;
-  margin-right:  1.3rem;
+  margin-right:  1.3rem ;
   font-weight: 800;
+  color: black;
 }
 .buton-menu{
   margin-right: 1.3rem;
+}
+.delete-row-button {
+  background-color: #cc5332; /* Soft Red */
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem; /* Comfortable padding */
+  font-size: 0.875rem; /* Slightly smaller font size */
+  border-radius: 0.5rem; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s; /* Smooth transitions */
+  height: 2rem;
+}
+
+.delete-row-button:hover {
+  background-color: #c05649; /* Slightly darker red on hover */
+}
+
+.delete-row-button:active {
+  transform: translateY(2px); /* Subtle "pressed" effect */
 }

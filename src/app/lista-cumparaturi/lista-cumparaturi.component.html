@@ -1,13 +1,13 @@
 <div class="menu">
   <div class="buton-menu">
-    <button class="menu-no-Button" routerLink="/adaugelement">Adaug </button>
+    <button class=" button-3d " routerLink="/adaugelement">Adaug </button>
   </div>
   <div class="buton-menu">
     <div *ngIf="isFixed">
-      <button class="menu-no-Button" (click)="scoateFiltre()">Elimina Filtre</button>
+      <button class=" button-3d" (click)="scoateFiltre()">Elimina Filtre</button>
     </div>
     <div *ngIf="!isFixed">
-      <button class="menu-no-Button" (click)="adaugaFiltre()">Filtre</button>
+      <button class=" button-3d" (click)="adaugaFiltre()">Filtre</button>
     </div>
   </div>
 </div>
@@ -55,7 +55,7 @@
     <ng-container matColumnDef="gata">
       <th mat-header-cell *matHeaderCellDef>Gata</th>
       <td mat-cell *matCellDef="let element">
-        <button (click)="modificaStare(element.id)" [class.button-gasit]="element.gata"
+        <button (click)="modificaStare(element.id)" class="button-3d" [class.button-gasit]="element.gata"
           [class.button-negasit]="!element.gata">
           <span *ngIf="element.gata"> Gasit</span>
           <span *ngIf="!element.gata"> Negasit </span>
@@ -65,7 +65,7 @@
     <ng-container matColumnDef="sterge">
       <th mat-header-cell *matHeaderCellDef>Sterge</th>
       <td mat-cell *matCellDef="let element">
-        <button (click)="sterge(element.id)" class="button-close">X</button>
+        <button (click)="sterge(element.id)" class="delete-row-button">🗑️</button>
       </td>
     </ng-container>
 

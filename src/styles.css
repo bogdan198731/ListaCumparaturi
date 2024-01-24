@@ -1,9 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; 
-background-color: paleturquoise;}
+background-color: #f4b6c2;
+/* background-color: #f4f4f4; */
+}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 button{
     height: 2rem;
     border-radius: 0.5rem;
+}
+.button-3d{
+    background-color: #e07a5f; /* Red background */
+    border: none;
+    color: white;
+    padding: 0.625rem 1.25rem; /* 10px 20px in rem */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem; /* 16px in rem */
+    margin: 0.25rem 0.125rem; /* 4px 2px in rem */
+    cursor: pointer;
+    border-radius: 0.25rem; /* 4px in rem */
+    box-shadow: 0 0.3125rem 0.3125rem #b56576; /* 0 5px 5px in rem */
+    border-radius: 0.5rem;
+  }
+  .button-3d:active {
+    box-shadow: 0 0.125rem 0.3125rem #b56576; /* 0 2px 5px in rem */
+    transform: translateY(0.25rem); /* Move button down when clicked */
+  }
+  .button-3d-disabled{
+    background-color: #c28777; /* Red background */
+    border: none;
+    color: white;
+    padding: 0.625rem 1.25rem; /* 10px 20px in rem */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem; /* 16px in rem */
+    margin: 0.25rem 0.125rem; /* 4px 2px in rem */
+    /* cursor: pointer; */
+    border-radius: 0.25rem; /* 4px in rem */
+    box-shadow: 0 0.3125rem 0.3125rem #b56576; /* 0 5px 5px in rem */
+    border-radius: 0.5rem;
+    opacity: 0.8;
   }
