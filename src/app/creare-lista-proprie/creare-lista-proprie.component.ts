@@ -42,6 +42,7 @@ import { Router } from '@angular/router';
 })
 export class CreareListaProprieComponent implements OnInit{
   formularDinamic: FormGroup[] = [];
+
   numeLista:string[] = [];
   listaSpecifica:ListaParticulara = {
     id: 0,
@@ -55,26 +56,37 @@ optiune :string = "Facultativ";
   constructor(private formBuilder: FormBuilder, private listeParticulare:ListeParticulare, 
     private router: Router,) { }
   nume = new FormControl('',Validators.required);
+  campOK = new FormControl('',Validators.required);
+  campKO = new FormControl('',Validators.required);
   public numeListaSpecifica: FormGroup = this.formBuilder.group(
     {
       nume: this.nume,
+
     },
     {
       updateOn: 'change',
     }
   );
-
+  formOkKo :FormGroup = this.formBuilder.group(
+   { campOk :this.campOK,
+    campKo : this.campKO,
+   },
+   {
+    updateOn: 'change',
+   }
+  )
   ngOnInit(): void {
     this.optiune = "Facultativ"
     this.adaugaCamp()
   }
   adaugaCamp() {
+    if (this.index<=10){
     this.index++;
-    console.log("index = ", this.index)
     const newForm = this.formBuilder.group({
       numeCamp: ['', Validators.required],
     });
-    this.formularDinamic.push(newForm);
+  
+    this.formularDinamic.push(newForm);}
   }
 
     stergeCamp(index: number) {
@@ -98,8 +110,25 @@ optiune :string = "Facultativ";
         console.log('Form is invalid');
       }
     }
+    if(this.campOK.value){
+    this.listaSpecifica.lista.set(98,this.campOK.value as string)
+  }
+    else{
+      this.listaSpecifica.lista.set(98,"OK")
+    }
+    if(this.campKO.value){
+      this.listaSpecifica.lista.set(99,this.campKO.value as string)
+    }
+      else{
+        this.listaSpecifica.lista.set(99,"KO")
+      }
+    this.listaSpecifica.lista.set(100,'Detalii')
+    this.listaSpecifica.lista.set(101,'index')
     console.log("test noua : ", this.listaSpecifica)
     this.listeParticulare.adaugareListaParticularaNoua(this.listaSpecifica);
     this.router.navigate(['/vizualizareListeParticulare']);
   }
+
 }
+
+

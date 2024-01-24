@@ -63,8 +63,6 @@ export class ListeParticulare {
         else{
             return [];
         }
-
-
     }
     recuperareComponenteListaParticulara(nume: string) : Map<string, string>[]{
         if(localStorage.getItem(nume + 'componente'))
@@ -76,8 +74,6 @@ export class ListeParticulare {
         else{
             return [];
         }
-
-
     }
     salvareComponeneteListaParticulara(nume:string, componenteListaParticulara: Array<Map<string,string>>) {
         console.log("componenteListaParticulara : ", componenteListaParticulara)

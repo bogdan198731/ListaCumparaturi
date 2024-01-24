@@ -6,6 +6,7 @@
             <input matInput [formControl]="nume" />
         </mat-form-field>
     </form>
+
     <div *ngFor="let form of formularDinamic; let i = index" class="camp">
         <form [formGroup]="form" class="camp">
             <div>
@@ -16,8 +17,21 @@
             <button type="button" (click)="stergeCamp(i)" class="button-3d">Sterge</button>
         </form>
     </div>
-    <span *ngIf="!numeListaSpecifica.valid || !formularDinamic[0].valid">Numele si cel putin un camp trebuiesc
-        alimentate</span>
+    <form [formGroup]="formOkKo" class="camp">
+        <div>
+            <!-- <mat-label>Nume coloana {{i}} </mat-label> -->
+            <input formControlName="campOk" placeholder="Valoare camp Ok" class="input-nume" />
+        </div>
+        <div>
+            <!-- <mat-label>Nume coloana {{i}} </mat-label> -->
+            <input formControlName="campKo" placeholder="Valoare camp Ko" class="input-nume" />
+        </div>
+    </form>
+    <p>Campurile Ok si Ko vor fi folosite pentru a defini valori de tipul "Gasit"/"Negasit" din lista de cumparaturi.
+    </p>
+
+    <span *ngIf="!numeListaSpecifica.valid || !formularDinamic[0].valid" class="allert">Numele si cel putin un camp
+        trebuiesc alimentate pentru a putea crea o lista.</span>
     <div class="butoane-jos">
 
         <button type="button" (click)="adaugaCamp()" class="button-3d">Adaugare camp</button>

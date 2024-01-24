@@ -49,7 +49,8 @@ export class AdaugaInListaParticularaComponent implements OnInit{
 
 
 
-  index = 0;
+  indexL = 0;
+  index: number = 0;
   nume = ''
   struncturaLista:Map<number,string> = new Map;
   listaParticulara:Array<Map<string,string>> = [];
@@ -68,6 +69,7 @@ export class AdaugaInListaParticularaComponent implements OnInit{
     
   }
   ngOnInit(): void {
+
     this.route.paramMap.subscribe(
       param => {
         console.log(param.get("nume"))
@@ -95,22 +97,23 @@ export class AdaugaInListaParticularaComponent implements OnInit{
       this.comandaParticulara.set(key, this.myForm.get(key)?.value);
       console.log("key : ", key, " value : ", this.myForm.get(key)?.value)
     });
+    this.comandaParticulara.set("status",this.struncturaLista.get(98) as string)
+    this.comandaParticulara.set("index", this.index as unknown as string)
     this.listaParticulara.push(this.comandaParticulara)
     console.log("this.listaParticulara : ",this.listaParticulara)
     this.listeParticulare.salvareComponeneteListaParticulara(this.nume,this.listaParticulara)
+    localStorage.setItem('index', this.index.toString());
     this.router.navigate(['/listaParticulara/',this.nume]);
   }
   
   createFormGroup() {
     const group: any = {};
-    this.struncturaLista.forEach(key => {
-      group[key] = new FormControl(this.struncturaLista.get(Number(key)));
+    this.struncturaLista.forEach((key, value) => {
+      if(!((value === 98) || (value===99) || (value===101))) 
+     { group[key] = new FormControl(this.struncturaLista.get(Number(key)));}
       console.log("key : ", key)
     });
     return new FormGroup(group);
   }
-  // onSubmit() {
-  //   console.log(this.myForm.value);
-  // }
 }
 

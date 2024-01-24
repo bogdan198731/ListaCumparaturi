@@ -12,23 +12,26 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 @Component({
   selector: 'app-vizualizare-lista-particulara',
   standalone: true,
-  imports: [NgIf, RouterLink, MatListModule, MatTableModule, MatSortModule, CommonModule, ],
+  imports: [NgIf, RouterLink, MatListModule, MatTableModule, MatSortModule, CommonModule,],
   templateUrl: './vizualizare-lista-particulara.component.html',
   styleUrl: './vizualizare-lista-particulara.component.scss'
 })
-export class VizualizareListaParticularaComponent implements OnInit{
-  coloane:string[] = [];
-  titluri:string[] = [];
+export class VizualizareListaParticularaComponent implements OnInit {
+  coloane: string[] = [];
+  titluri: string[] = [];
   public listaComenziSortata = new MatTableDataSource<string[]>();
   @ViewChild(MatSort) sort!: MatSort;
   isFixed: boolean = false;
-  listaParticulara:Array<Map<string,string>> = [];
+  listaParticulara: Array<Map<string, string>> = [];
   tableContainer = document.getElementById("table-container");
-  nume : string = ''
-  struncturaLista:Map<number,string> = new Map;
+  nume: string = ''
+  campOK: string = "OK"
+  campKO: string = "KO"
+  campOkKO:string = '';
+  struncturaLista: Map<number, string> = new Map;
   @ViewChild('tableContainer', { static: true }) tableContainerR!: ElementRef;
-  constructor(private route: ActivatedRoute ,private router: Router, private listeParticulare:ListeParticulare,
-    private renderer: Renderer2, private _liveAnnouncer: LiveAnnouncer){
+  constructor(private route: ActivatedRoute, private router: Router, private listeParticulare: ListeParticulare,
+    private renderer: Renderer2, private _liveAnnouncer: LiveAnnouncer) {
 
   }
   ngOnInit(): void {
@@ -36,7 +39,7 @@ export class VizualizareListaParticularaComponent implements OnInit{
       param => {
         console.log(param.get("nume"))
         this.nume = String(param.get("nume"));
-        this.struncturaLista =  this.listeParticulare.recuperareStructuraListaParticulara(String(param.get("nume")))
+        this.struncturaLista = this.listeParticulare.recuperareStructuraListaParticulara(String(param.get("nume")))
         console.log("this.struncturaLista : ", this.struncturaLista)
         this.listaParticulara = this.listeParticulare.recuperareComponenteListaParticulara(this.nume);
 
@@ -50,19 +53,20 @@ export class VizualizareListaParticularaComponent implements OnInit{
     this.listaComenziSortata.sort = this.sort;
   }
   createMatTable() {
+    console.log("createMatTable = ")
     const table = this.renderer.createElement('table');
     this.renderer.addClass(table, 'mat-table');
 
     // Define the columns and rows data
-    let columns:string[] = [];
+    let columns: string[] = [];
     this.struncturaLista.forEach(
-      (key,value) =>  {
+      (key, value) => {
         console.log("key = ", key, " value = ", value)
-       columns.push(key)
+        if (!((value === 98) || (value === 99))) { columns.push(key) }
       }
-      
+
     )
-    console.log("columns : ",columns)
+    console.log("columns : ", columns)
     const dataSource = this.listaParticulara;
 
     // Create header row
@@ -96,48 +100,46 @@ export class VizualizareListaParticularaComponent implements OnInit{
     // Append the table to the container
     this.renderer.appendChild(this.tableContainerR.nativeElement, table);
   }
-  scoateFiltre(){  
+  scoateFiltre() {
     // this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru()
     // this.operatiuniFiltre.modificaFiltruFals();
     // this.reload.next(true)
     this.router.navigate(['/listacumparaturi']);
   }
-  adaugaFiltre(){  
+  adaugaFiltre() {
     this.router.navigate(['/filtre']);
     // this.reload.next(false)
   }
-  test(){
+  test() {
     console.log("Apasat")
   }
 
-  creareTabelaSimplificata(){
+  creareTabelaSimplificata() {
     let i = 0;
     this.struncturaLista.forEach(
-      (key,value) =>  {
-        
-        this.titluri.push(key)
-       this.coloane.push("camp"+ i++)
+      (key, value) => {
+        if (!((value === 98) || (value === 99) || (value === 100) || (value === 101))) {
+          this.titluri.push(key)
+          this.coloane.push("camp" + i++)
+        }
+
       })
-      console.log("coloane : ",this.coloane)
-      let lista:string[][] = [];
- 
-      this.listaComenziSortata.data = this.listaParticulara.map(map => {
-        const obj: any = {};
-        map.forEach((value, key) => {
-          console.log("key = ", key, " value = ", value)
-          let str :string ="";
-          this.struncturaLista.forEach(
-            (keyS, valueS) => {
-              if(keyS ===key )
-              {
-                str = "camp"+ valueS
-              }
-            }
-          )
-          obj[str] = value});
-        return obj;
-      });
-      console.log("this.listaComenziSortata : ", this.listaComenziSortata.data)
+    this.campKO = this.struncturaLista.get(99) as string;
+    this.campOK = this.struncturaLista.get(98) as string;
+    console.log("this.campKO ", this.campKO)
+    if (this.campOK === "OK") {
+      this.campOkKO = this.struncturaLista.get(98) as string;
+    }
+    else {
+      this.campOkKO = this.struncturaLista.get(99) as string;
+    }
+    this.coloane.push("toggle")
+    this.coloane.push("sterge")
+    console.log("coloane : ", this.coloane)
+    let lista: string[][] = [];
+
+    this.alimTablela()
+    console.log("this.listaComenziSortata : ", this.listaComenziSortata.data)
   }
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
@@ -146,11 +148,57 @@ export class VizualizareListaParticularaComponent implements OnInit{
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-  sterge(id: number) {
-    // this.operatiuniLista.stergeComanda(id); 
-    // this.listaComenziSortata.data = this.operatiuniLista.retituieListaLucru()
+  sterge(element: string) {
+    this.listaParticulara = this.listaParticulara.filter(map => map.get("index") != element)
+    this.alimTablela();
   }
-  veziDetali(id:number){
-    this.router.navigate(['/detalii/'+ id]);
+  veziDetali(id: number) {
+    this.router.navigate(['/detalii/' + id]);
+  }
+
+  modificaStare(element: string) {
+    console.log("element = ", element)
+
+
+    let el = this.listaParticulara.find(map => map.get("index") === element)
+    console.log("el = ", el)
+    if (el) {
+      if(this.struncturaLista.get(98) as string === el.get("status"))
+      {
+        el.set("status",this.struncturaLista.get(99) as string)
+      }
+      else{
+        el.set("status",this.struncturaLista.get(98) as string)
+      }
+    }
+    console.log("el = ", el)
+    console.log("elt = ", this.listaParticulara)
+    this.alimTablela();
+  }
+
+  alimTablela() {
+    console.log("this.listaParticulara = ",this.listaParticulara)
+    this.listaComenziSortata.data = this.listaParticulara.map(map => {
+      const obj: any = {};
+      map.forEach((value, key) => {
+        let str: string = "";
+        this.struncturaLista.forEach(
+          (keyS, valueS) => {
+            if (keyS === key) {
+              str = "camp" + valueS
+            }
+            else{
+              if(key === "status")
+              {
+                str = "status"
+              }
+            }
+          }
+        )
+        console.log("str = ", str, " valueS = ", value)
+        obj[str] = value
+      });
+      return obj;
+    });
   }
 }
