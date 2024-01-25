@@ -34,10 +34,12 @@ export class VizualizareListaParticularaComponent implements OnInit {
   campOK: string = "OK"
   campKO: string = "KO"
   campOkKO: string = '';
+  campEsteOk = "";
   struncturaLista: Map<number, string> = new Map;
   subscription: Subscription = new Subscription();
   workMap: Map<string, string[]> = new Map();
   filtruOn = false;
+
 
   @ViewChild('tableContainer', { static: true }) tableContainerR!: ElementRef;
   constructor(private route: ActivatedRoute, private router: Router, private serviciuListeParticulare: ListeParticulare,
@@ -50,6 +52,7 @@ export class VizualizareListaParticularaComponent implements OnInit {
       param => {
         this.nume = String(param.get("nume"));
         this.struncturaLista = this.serviciuListeParticulare.recuperareStructuraListaParticulara(String(param.get("nume")))
+        this.campEsteOk = this.struncturaLista.get(98) as string;
         this.listaParticulara = this.serviciuListeParticulare.recuperareComponenteListaParticulara(this.nume);
         this.creareTabelaSimplificata()
       }

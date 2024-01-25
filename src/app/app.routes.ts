@@ -13,6 +13,7 @@ import { AdaugaInListaParticularaComponent } from './adauga-in-lista-particulara
 import { DespreComponent } from './despre/despre.component';
 import { VizualizareDetaliuListaParticularaComponent } from './vizualizare-detaliu-lista-particulara/vizualizare-detaliu-lista-particulara.component';
 import { FiltreListaPersonalizataComponent } from './filtre-lista-personalizata/filtre-lista-personalizata.component';
+import { ContactComponent } from './contact/contact.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/bunvenit', pathMatch: 'full' },
@@ -30,4 +31,5 @@ export const routes: Routes = [
   { path : 'despre', component :DespreComponent},
   { path : 'detaliiparticular/:nume', component:VizualizareDetaliuListaParticularaComponent},
   { path :'filtrepersonalizate/:nume', component:FiltreListaPersonalizataComponent},
+  { path : 'contact', component:ContactComponent},
 ];
