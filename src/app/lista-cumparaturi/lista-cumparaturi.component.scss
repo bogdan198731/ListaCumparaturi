@@ -1,9 +1,23 @@
-table {
+table th{
   width: 100%;
   background-color: #555555;
-  color: white
+  color: white;
+  background-color: #215a8d;
 }
-
+tr:nth-child(odd){
+  background-color: aqua;
+  background-color: #f9f9f9;
+  background-color: #ffffff;
+  background-color: #e3f2fd;
+  border: auto;
+}
+tr:nth-child(even){
+  background-color: aqua;
+  background-color: #f9f9f9;
+  background-color: #eaeaea;
+  background-color: #ffffff;
+  border: auto;
+}
 th.mat-sort-header-sorted {
   color: black;
 }
@@ -13,15 +27,18 @@ button{
 }
 .button-gasit{
   background-color: #81b29a;
+  background-color: #4caf50;
   font-size: 0.8rem;
 }
 .button-negasit{
   background-color: #e07a5f;
+  background-color: #f44336;
   font-size: 0.8rem;
 }
 
 .button-close{
   background-color: red;
+  background-color: #ff5da8;
 }
 .noButton{
   background-color: inherit;
@@ -31,18 +48,7 @@ button{
 .button-close:hover {
   height: 110%;
 }
-tr:nth-child(odd){
-  background-color: aqua;
-  background-color: #f9f9f9;
-  background-color: #ffffff;
-  border: auto;
-}
-tr:nth-child(even){
-  background-color: aqua;
-  background-color: #f9f9f9;
-  background-color: #eaeaea;
-  border: auto;
-}
+
 
 .menu{
   display: flex;

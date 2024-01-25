@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; 
-background-color: #f4b6c2;
+/* background-color: #f4b6c2; */
 /* background-color: #f4f4f4; */
+background-image: linear-gradient(to right top, #ffc17d, #ff9e7c, #ff7a8a, #ff5da8, #ff40c5);
+ background-color: #ebebeb;
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 button{
@@ -11,6 +13,8 @@ button{
 }
 .button-3d{
     background-color: #e07a5f; /* Red background */
+    background-color: #4a8feb;
+    /* background-color: #ff9e7c; */
     border: none;
     color: white;
     padding: 0.625rem 1.25rem; /* 10px 20px in rem */
