@@ -8,6 +8,7 @@ import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } fr
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { OperatiuniFiltreParticulare } from '../servicii/operatiuniFiltreParticulare';
 
 @Component({
   selector: 'app-vizualizare-detaliu-lista-particulara',
@@ -40,7 +41,10 @@ export class VizualizareDetaliuListaParticularaComponent implements OnInit{
   listaParticulara: Array<Map<string, string>> = [];
 
 
-  constructor(private serviciuListeParticulare: ListeParticulare, private route: ActivatedRoute, private router: Router){
+  constructor(private serviciuListeParticulare: ListeParticulare, 
+
+    private route: ActivatedRoute, 
+    private router: Router){
 
   }
   ngOnInit(): void {

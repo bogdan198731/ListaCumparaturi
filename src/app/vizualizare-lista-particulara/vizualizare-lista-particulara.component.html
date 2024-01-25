@@ -4,10 +4,10 @@
         </button>
     </div>
     <div class="buton-menu">
-        <div *ngIf="isFixed">
+        <div *ngIf="filtruOn">
             <button class="button-3d" (click)="scoateFiltre()">Elimina Filtre</button>
         </div>
-        <div *ngIf="!isFixed">
+        <div *ngIf="!filtruOn">
             <button class="button-3d" (click)="adaugaFiltre()">Filtre</button>
         </div>
     </div>

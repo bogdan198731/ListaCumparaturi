@@ -8,6 +8,10 @@ import { ElementLista } from '../model/elementLista';
 import { MatListModule } from '@angular/material/list';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Subscription } from 'rxjs';
+import { RouterComponent } from '../router/router.component';
+import { FiltreListaPersonalizataComponent } from '../filtre-lista-personalizata/filtre-lista-personalizata.component';
+import { OperatiuniFiltreParticulare } from '../servicii/operatiuniFiltreParticulare';
 
 @Component({
   selector: 'app-vizualizare-lista-particulara',
@@ -23,28 +27,30 @@ export class VizualizareListaParticularaComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   isFixed: boolean = false;
   listaParticulara: Array<Map<string, string>> = [];
+  listaParticularaLucru:Array<Map<string, string>> = [];
+  listaLucru: Array<Map<string, string>> = [];
   tableContainer = document.getElementById("table-container");
   nume: string = ''
   campOK: string = "OK"
   campKO: string = "KO"
-  campOkKO:string = '';
+  campOkKO: string = '';
   struncturaLista: Map<number, string> = new Map;
+  subscription: Subscription = new Subscription();
+  workMap: Map<string, string[]> = new Map();
+  filtruOn = false;
+
   @ViewChild('tableContainer', { static: true }) tableContainerR!: ElementRef;
   constructor(private route: ActivatedRoute, private router: Router, private serviciuListeParticulare: ListeParticulare,
-    private renderer: Renderer2, private _liveAnnouncer: LiveAnnouncer) {
+    private renderer: Renderer2, private _liveAnnouncer: LiveAnnouncer, private routerComponent: RouterComponent,
+    private serviciuFiltrePersonalizate: OperatiuniFiltreParticulare,) {
 
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe(
       param => {
-        console.log(param.get("nume"))
         this.nume = String(param.get("nume"));
         this.struncturaLista = this.serviciuListeParticulare.recuperareStructuraListaParticulara(String(param.get("nume")))
-        console.log("this.struncturaLista : ", this.struncturaLista)
         this.listaParticulara = this.serviciuListeParticulare.recuperareComponenteListaParticulara(this.nume);
-
-        console.log("this.struncturaLista = ", this.struncturaLista)
-        // this.createMatTable();
         this.creareTabelaSimplificata()
       }
     )
@@ -53,7 +59,6 @@ export class VizualizareListaParticularaComponent implements OnInit {
     this.listaComenziSortata.sort = this.sort;
   }
   createMatTable() {
-    console.log("createMatTable = ")
     const table = this.renderer.createElement('table');
     this.renderer.addClass(table, 'mat-table');
 
@@ -61,12 +66,9 @@ export class VizualizareListaParticularaComponent implements OnInit {
     let columns: string[] = [];
     this.struncturaLista.forEach(
       (key, value) => {
-        console.log("key = ", key, " value = ", value)
         if (!((value === 98) || (value === 99))) { columns.push(key) }
       }
-
     )
-    console.log("columns : ", columns)
     const dataSource = this.listaParticulara;
 
     // Create header row
@@ -83,11 +85,9 @@ export class VizualizareListaParticularaComponent implements OnInit {
 
     // Create data rows
     dataSource.forEach(rowData => {
-      console.log("rowData = ", rowData)
       const row = this.renderer.createElement('tr');
       this.renderer.addClass(row, 'mat-row');
       columns.forEach(column => {
-        console.log("column = ", column)
         const td = this.renderer.createElement('td');
         this.renderer.addClass(td, 'mat-cell');
         const text = this.renderer.createText(rowData.get(column)!);
@@ -101,13 +101,13 @@ export class VizualizareListaParticularaComponent implements OnInit {
     this.renderer.appendChild(this.tableContainerR.nativeElement, table);
   }
   scoateFiltre() {
-    // this.listaComenziSortata.data = this.manipulareLista.retituieListaLucru()
-    // this.operatiuniFiltre.modificaFiltruFals();
-    // this.reload.next(true)
-    this.router.navigate(['/listacumparaturi']);
+    this.serviciuFiltrePersonalizate.filtru = false;
+    this.alimTablela()
+    this.router.navigate(['/listaParticulara/' + this.nume]);
+    this.filtruOn = false;
   }
   adaugaFiltre() {
-    this.router.navigate(['/filtre']);
+    this.router.navigate(['/filtrepersonalizate/' + this.nume]);
     // this.reload.next(false)
   }
   test() {
@@ -134,11 +134,8 @@ export class VizualizareListaParticularaComponent implements OnInit {
     }
     this.coloane.push("toggle")
     this.coloane.push("sterge")
-    console.log("coloane : ", this.coloane)
     let lista: string[][] = [];
-
     this.alimTablela()
-    console.log("this.listaComenziSortata : ", this.listaComenziSortata.data)
   }
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
@@ -149,44 +146,100 @@ export class VizualizareListaParticularaComponent implements OnInit {
   }
   sterge(element: string) {
     this.listaParticulara = this.listaParticulara.filter(map => map.get("index") != element);
-    this.serviciuListeParticulare.salvareComponeneteListaParticulara(this.nume,this.listaParticulara);
+    this.serviciuListeParticulare.salvareComponeneteListaParticulara(this.nume, this.listaParticulara);
     this.alimTablela();
   }
   veziDetali(element: string) {
-    let comanda = this.listaParticulara.find(map => map.get("index") === element) as Map<string,string>
+    let comanda = this.listaParticulara.find(map => map.get("index") === element) as Map<string, string>
     this.serviciuListeParticulare.alimenteazaComandaParticularaLucru(comanda)
-    this.router.navigate(['/detaliiparticular/'+ this.nume]);
+    this.router.navigate(['/detaliiparticular/' + this.nume]);
   }
 
   modificaStare(element: string) {
-
+    console.log("modificare stare", element)
+    console.log("this.listaParticulara element = ", this.listaParticulara)
     let el = this.listaParticulara.find(map => map.get("index") === element)
     if (el) {
-      if(this.struncturaLista.get(98) as string === el.get("status"))
-      {
-        el.set("status",this.struncturaLista.get(99) as string)
+      console.log("GASIT")
+      if (this.struncturaLista.get(98) as string === el.get("status")) {
+        el.set("status", this.struncturaLista.get(99) as string)
+        console.log("this.struncturaLista.get(99) as string = ", this.struncturaLista.get(99) as string)
       }
-      else{
-        el.set("status",this.struncturaLista.get(98) as string)
+      else {
+        el.set("status", this.struncturaLista.get(98) as string)
+        console.log("this.struncturaLista.get(98) as string = ", this.struncturaLista.get(98) as string)
       }
     }
-    this.serviciuListeParticulare.salvareComponeneteListaParticulara(this.nume,this.listaParticulara)
+    console.log("this.el modificata = ", el)
+    console.log("this.listaParticulara modificata = ", this.listaParticulara)
+    this.serviciuListeParticulare.salvareComponeneteListaParticulara(this.nume, this.listaParticulara)
     this.alimTablela();
   }
 
   alimTablela() {
-    this.listaComenziSortata.data = this.listaParticulara.map(map => {
+    console.log("this.listaParticulara = ",this.listaParticulara)
+    this.listaParticularaLucru = this.listaParticulara;
+    if (this.serviciuFiltrePersonalizate.filtru) {
+      {
+        this.filtruOn = true;
+        console.log("this.serviciuFiltrePersonalizate.returnareWorkMap() = ", this.serviciuFiltrePersonalizate.returnareWorkMap())
+        this.listaLucru = []
+        if (this.serviciuFiltrePersonalizate.returnareWorkMap()) {
+          this.workMap = this.serviciuFiltrePersonalizate.returnareWorkMap()
+
+          this.listaParticularaLucru.forEach(
+            (map) => {
+              let alimentez = false
+              let mapTest = new Map()
+              map.forEach(
+                (value, key) => {
+                  console.log("value = ", value, " key = ", key)
+                  console.log("this.workMap = ", this.workMap.get(value));
+                  console.log("test merge", key)
+
+                  if (this.workMap.has(key)) {
+                    console.log("ARE VALOARE", key)
+                    const arrayDeTest = this.workMap.get(key)
+
+                    console.log("arrayDeTest = ", arrayDeTest)
+                    if (arrayDeTest?.find(
+                      f => f === value
+                    )) {
+                      // console.log("ALIMENTEZ TEST")
+                      alimentez = true;
+                    }
+                  }
+                  map.set(key, value)
+                }
+              )
+              if (alimentez) {
+                // console.log("ALIMENTEZ", map)
+                this.listaLucru.push(map)
+              }
+            }
+          )
+
+        }
+      }
+    }
+    else {
+      this.listaLucru = this.listaParticulara
+    }
+    this.subscription = this.serviciuFiltrePersonalizate.fixed$
+      .subscribe(fixed => this.isFixed = fixed)
+    this.listaComenziSortata.data = this.listaLucru.map(map => {
       const obj: any = {};
       map.forEach((value, key) => {
+        // console.log("KEY = ", value, " VALUE = ", key)
         let str: string = "";
         this.struncturaLista.forEach(
           (keyS, valueS) => {
+            // console.log("KEYS = ", keyS, " VALUES = ", valueS)
             if (keyS === key) {
               str = "camp" + valueS
             }
-            else{
-              if(key === "status")
-              {
+            else {
+              if (key === "status") {
                 str = "status"
               }
             }
@@ -196,5 +249,6 @@ export class VizualizareListaParticularaComponent implements OnInit {
       });
       return obj;
     });
+    console.log("this.listaParticulara alim table = ", this.listaParticulara)
   }
 }

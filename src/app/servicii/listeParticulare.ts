@@ -14,6 +14,7 @@ export class ListeParticulare {
     private elementArhiva!: ListaParticulara;
     private listeParticulare: string[] = [];
     private comandaParticularaLucru :Map<string,string> = new Map() 
+    workMap: Map<string,string[]> = new Map();
 
     constructor() { }
 
@@ -75,6 +76,7 @@ export class ListeParticulare {
             return [];
         }
     }
+
 
     salvareComponeneteListaParticulara(nume:string, componenteListaParticulara: Array<Map<string,string>>) {
         console.log("componenteListaParticulara : ", componenteListaParticulara)

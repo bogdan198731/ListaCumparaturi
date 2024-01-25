@@ -91,6 +91,7 @@ export class AdaugaInListaParticularaComponent implements OnInit{
     }
 
     this.listaParticulara = this.listeParticulare.recuperareComponenteListaParticulara(this.nume);
+
     this.struncturaLista.forEach(key => {
       this.comandaParticulara.set(key, this.myForm.get(key)?.value);
       console.log("key : ", key, " value : ", this.myForm.get(key)?.value)
@@ -106,10 +107,10 @@ export class AdaugaInListaParticularaComponent implements OnInit{
   
   createFormGroup() {
     const group: any = {};
-    this.struncturaLista.forEach((key, value) => {
-      if(!((value === 98) || (value===99) || (value===101))) 
-     { group[key] = new FormControl(this.struncturaLista.get(Number(key)));}
-      console.log("key : ", key)
+    this.struncturaLista.forEach((value, key) => {
+      if(!((key === 98) || (key===99) || (key===101))) 
+     { group[value] = new FormControl(this.struncturaLista.get(Number(value)));}
+      console.log("value : ", value)
     });
     return new FormGroup(group);
   }

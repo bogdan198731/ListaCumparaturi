@@ -12,6 +12,7 @@ import { VizualizareListaParticularaComponent } from './vizualizare-lista-partic
 import { AdaugaInListaParticularaComponent } from './adauga-in-lista-particulara/adauga-in-lista-particulara.component';
 import { DespreComponent } from './despre/despre.component';
 import { VizualizareDetaliuListaParticularaComponent } from './vizualizare-detaliu-lista-particulara/vizualizare-detaliu-lista-particulara.component';
+import { FiltreListaPersonalizataComponent } from './filtre-lista-personalizata/filtre-lista-personalizata.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/bunvenit', pathMatch: 'full' },
@@ -27,5 +28,6 @@ export const routes: Routes = [
   { path : 'listaParticulara/:nume', component : VizualizareListaParticularaComponent},
   { path : 'adaugareElementListaParticulara/:nume', component :AdaugaInListaParticularaComponent},
   { path : 'despre', component :DespreComponent},
-  { path : 'detaliiparticular/:nume', component:VizualizareDetaliuListaParticularaComponent}
+  { path : 'detaliiparticular/:nume', component:VizualizareDetaliuListaParticularaComponent},
+  { path :'filtrepersonalizate/:nume', component:FiltreListaPersonalizataComponent},
 ];
