@@ -90,9 +90,7 @@ export class AdaugaInListaParticularaComponent implements OnInit{
       this.index = 1;
     }
 
-    console.log(this.myForm.value);
     this.listaParticulara = this.listeParticulare.recuperareComponenteListaParticulara(this.nume);
-    console.log("listaParticulara = ", this.listaParticulara)
     this.struncturaLista.forEach(key => {
       this.comandaParticulara.set(key, this.myForm.get(key)?.value);
       console.log("key : ", key, " value : ", this.myForm.get(key)?.value)

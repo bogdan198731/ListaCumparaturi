@@ -11,6 +11,7 @@ import { CautareListeParticulareComponent } from './cautare-liste-particulare/ca
 import { VizualizareListaParticularaComponent } from './vizualizare-lista-particulara/vizualizare-lista-particulara.component';
 import { AdaugaInListaParticularaComponent } from './adauga-in-lista-particulara/adauga-in-lista-particulara.component';
 import { DespreComponent } from './despre/despre.component';
+import { VizualizareDetaliuListaParticularaComponent } from './vizualizare-detaliu-lista-particulara/vizualizare-detaliu-lista-particulara.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/bunvenit', pathMatch: 'full' },
@@ -26,4 +27,5 @@ export const routes: Routes = [
   { path : 'listaParticulara/:nume', component : VizualizareListaParticularaComponent},
   { path : 'adaugareElementListaParticulara/:nume', component :AdaugaInListaParticularaComponent},
   { path : 'despre', component :DespreComponent},
+  { path : 'detaliiparticular/:nume', component:VizualizareDetaliuListaParticularaComponent}
 ];

@@ -1,1 +1,39 @@
-<p>vizualizare-detaliu-lista-particulara works!</p>
+<!-- <div>
+    <h2>Adauga element in lista {{nume}}</h2>
+    <form [formGroup]="myForm" (ngSubmit)="salvare()" class="ecran">
+        <table>
+            <tr *ngFor="let key of objectKeys(myForm.controls)">
+                <td>
+                    <label>{{key}}</label>
+                </td>
+                <td>
+                    <input class="input-nume" type="text" [formControlName]="key">
+                </td>
+            </tr>
+        </table>
+        <div class="butonAdd">
+            <button type="submit" class="center button-3d">Adauga in lista</button>
+        </div>
+    </form>
+</div> -->
+<div>
+    <h2>Adauga element in lista {{nume}}</h2>
+    <form [formGroup]="myForm" (ngSubmit)="salvare()" class="ecran">
+        <table>
+            <tr *ngFor="let key of objectKeys(myForm.controls) let i = index">
+                <td>
+                    <label>{{key}}</label>
+                </td>
+                <td>
+                    <mat-form-field>
+                        <mat-label>Nume</mat-label>
+                        <input matInput [formControl]="numeFormControl[i]" />
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+        <div class="butonAdd">
+            <button type="submit" class="center button-3d">Salveaza</button>
+        </div>
+    </form>
+</div>

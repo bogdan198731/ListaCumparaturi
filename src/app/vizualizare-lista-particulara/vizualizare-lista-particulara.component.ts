@@ -30,7 +30,7 @@ export class VizualizareListaParticularaComponent implements OnInit {
   campOkKO:string = '';
   struncturaLista: Map<number, string> = new Map;
   @ViewChild('tableContainer', { static: true }) tableContainerR!: ElementRef;
-  constructor(private route: ActivatedRoute, private router: Router, private listeParticulare: ListeParticulare,
+  constructor(private route: ActivatedRoute, private router: Router, private serviciuListeParticulare: ListeParticulare,
     private renderer: Renderer2, private _liveAnnouncer: LiveAnnouncer) {
 
   }
@@ -39,9 +39,9 @@ export class VizualizareListaParticularaComponent implements OnInit {
       param => {
         console.log(param.get("nume"))
         this.nume = String(param.get("nume"));
-        this.struncturaLista = this.listeParticulare.recuperareStructuraListaParticulara(String(param.get("nume")))
+        this.struncturaLista = this.serviciuListeParticulare.recuperareStructuraListaParticulara(String(param.get("nume")))
         console.log("this.struncturaLista : ", this.struncturaLista)
-        this.listaParticulara = this.listeParticulare.recuperareComponenteListaParticulara(this.nume);
+        this.listaParticulara = this.serviciuListeParticulare.recuperareComponenteListaParticulara(this.nume);
 
         console.log("this.struncturaLista = ", this.struncturaLista)
         // this.createMatTable();
@@ -126,7 +126,6 @@ export class VizualizareListaParticularaComponent implements OnInit {
       })
     this.campKO = this.struncturaLista.get(99) as string;
     this.campOK = this.struncturaLista.get(98) as string;
-    console.log("this.campKO ", this.campKO)
     if (this.campOK === "OK") {
       this.campOkKO = this.struncturaLista.get(98) as string;
     }
@@ -149,19 +148,19 @@ export class VizualizareListaParticularaComponent implements OnInit {
     }
   }
   sterge(element: string) {
-    this.listaParticulara = this.listaParticulara.filter(map => map.get("index") != element)
+    this.listaParticulara = this.listaParticulara.filter(map => map.get("index") != element);
+    this.serviciuListeParticulare.salvareComponeneteListaParticulara(this.nume,this.listaParticulara);
     this.alimTablela();
   }
-  veziDetali(id: number) {
-    this.router.navigate(['/detalii/' + id]);
+  veziDetali(element: string) {
+    let comanda = this.listaParticulara.find(map => map.get("index") === element) as Map<string,string>
+    this.serviciuListeParticulare.alimenteazaComandaParticularaLucru(comanda)
+    this.router.navigate(['/detaliiparticular/'+ this.nume]);
   }
 
   modificaStare(element: string) {
-    console.log("element = ", element)
-
 
     let el = this.listaParticulara.find(map => map.get("index") === element)
-    console.log("el = ", el)
     if (el) {
       if(this.struncturaLista.get(98) as string === el.get("status"))
       {
@@ -171,13 +170,11 @@ export class VizualizareListaParticularaComponent implements OnInit {
         el.set("status",this.struncturaLista.get(98) as string)
       }
     }
-    console.log("el = ", el)
-    console.log("elt = ", this.listaParticulara)
+    this.serviciuListeParticulare.salvareComponeneteListaParticulara(this.nume,this.listaParticulara)
     this.alimTablela();
   }
 
   alimTablela() {
-    console.log("this.listaParticulara = ",this.listaParticulara)
     this.listaComenziSortata.data = this.listaParticulara.map(map => {
       const obj: any = {};
       map.forEach((value, key) => {
@@ -195,7 +192,6 @@ export class VizualizareListaParticularaComponent implements OnInit {
             }
           }
         )
-        console.log("str = ", str, " valueS = ", value)
         obj[str] = value
       });
       return obj;

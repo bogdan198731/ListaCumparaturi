@@ -13,9 +13,9 @@ export class ListeParticulare {
     private elementeListaLucru: ListaParticulara[] = [];
     private elementArhiva!: ListaParticulara;
     private listeParticulare: string[] = [];
+    private comandaParticularaLucru :Map<string,string> = new Map() 
 
     constructor() { }
-
 
     private elementLista: ListaParticulara = {
         id: 0,
@@ -75,6 +75,7 @@ export class ListeParticulare {
             return [];
         }
     }
+
     salvareComponeneteListaParticulara(nume:string, componenteListaParticulara: Array<Map<string,string>>) {
         console.log("componenteListaParticulara : ", componenteListaParticulara)
         const serializableArray = componenteListaParticulara.map(map => Array.from(map.entries())); 
@@ -115,14 +116,16 @@ export class ListeParticulare {
 
     }
 
+    alimenteazaComandaParticularaLucru(comanda:Map<string,string>)
+    {console.log("alimenteazaComandaParticularaLucru = ", comanda)
+        this.comandaParticularaLucru = comanda;
+    }
+    returneazaComandaParticularaLucru() :Map<string,string>{
+        return this.comandaParticularaLucru;
+    }
     stergeComanda(id: number) {
-        //   this.elementeListaLucru.filter(index => index.id == id).forEach(
-        //     el => this.adaugaInArhiva(el)
-        //   )
-
         this.elementeListaLucru = this.elementeListaLucru.filter(index => index.id !== id)
         this.salvareLista();
-
     }
 
     recuperareComanda(id: number): ElementLista {

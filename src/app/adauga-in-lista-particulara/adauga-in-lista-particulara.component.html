@@ -2,14 +2,6 @@
     <h2>Adauga element in lista {{nume}}</h2>
     <form [formGroup]="myForm" (ngSubmit)="adaugInLista()" class="ecran">
         <table>
-            <!-- <tr>
-                <th>
-                    Nume
-                </th>
-                <th>
-                    Valoare
-                </th>
-            </tr> -->
             <tr *ngFor="let key of objectKeys(myForm.controls)">
                 <td>
                     <label>{{key}}</label>
@@ -21,7 +13,6 @@
         </table>
         <div class="butonAdd">
             <button type="submit" class="center button-3d">Adauga in lista</button>
-            <!-- <button type="submit" [disabled]="!formularComanda.valid" class="center">Adauga in lista</button> -->
         </div>
     </form>
 </div>
