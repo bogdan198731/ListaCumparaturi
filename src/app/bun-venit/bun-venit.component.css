@@ -1,5 +1,11 @@
+.titlu{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
 h1{
-    margin-left: 4rem;
+margin-top: 3rem;
 }
 p{
     margin-left: 2rem;

@@ -1,4 +1,4 @@
-/* .fereastra-filtre{
+.fereastra-filtre{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -8,12 +8,15 @@
 .filtre{
     display: flex;
     flex-direction: column;
-    min-width: 50%;
+    min-width: 70%;
     margin-left: 0.5rem;
+}
+.filtru{
+    width: 100%;
 }
 .filtre-button{
     margin-right: 0.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-} */
+}

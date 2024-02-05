@@ -48,3 +48,11 @@ button{
     border-radius: 0.5rem;
     opacity: 0.8;
   }
+  table{
+    /* padding: 0.1rem; */
+    background-color: transparent;
+    /* border: 1px solid #d21212; */
+  }
+  .mat-mdc-menu-content{
+    background-color: rgba(104, 142, 230, 0.515);
+  }

@@ -1,14 +1,19 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
 <div class="fereastra-filtre">
-    <div *ngFor="let key of objectKeys(myForm.controls) let i = index" class="filtre">
-        <mat-form-field>
-            <mat-label>{{key}}</mat-label>
-            <mat-select matInput [formControl]="numeFormControl[i]" multiple>
-                @for (status of arrayLucru[i][0]; track status)
-                {
-                <mat-option [value]="status">{{status}}</mat-option>
-                }
-            </mat-select>
-        </mat-form-field>
+    <div class="filtre">
+        <div *ngFor="let key of objectKeys(myForm.controls) let i = index">
+            <mat-form-field class="filtru">
+                <mat-label>{{key}}</mat-label>
+                <mat-select matInput [formControl]="numeFormControl[i]" multiple>
+                    @for (status of arrayLucru[i][0]; track status)
+                    {
+                    <mat-option [value]="status">{{status}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
     <div class="filtre-button">
         <button (click)="aplicaFiltre()" class="button-3d"> Aplica filtre</button>

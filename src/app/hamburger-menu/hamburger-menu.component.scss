@@ -1,0 +1,30 @@
+.menu-locatie {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.mat-icon-button {
+  height: 5rem;
+}
+
+.menu {
+  display: flex;
+  margin-top: 1.4rem;
+  margin-right: 0.8rem;
+  font-weight: 900;
+  font-size: 2rem;
+  position: absolute;
+  background-color: transparent;
+  padding: 0;
+  color: white;
+}
+
+.menu-item{
+  font-weight: 700;
+}
+::ng-deep .mat-icon {
+  height: 48px !important;
+  width: 48px !important;
+  font-size: 48px !important;
+}
