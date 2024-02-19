@@ -8,7 +8,20 @@
     <!-- <button mat-menu-item routerLink="/bunvenit">Pagina start</button> -->
     <button class=" button-3d" routerLink="/listacumparaturi">Lista Cumparaturi</button>
     <button class=" button-3d" routerLink="/crearelista">Creare lista proprie</button>
-    <button class=" button-3d" routerLink="/vizualizareListeParticulare">Vizualizare liste create</button>
+    <!-- <button class=" button-3d" routerLink="/vizualizareListeParticulare">Vizualizare liste create</button> -->
+    <!-- <button mat-button class=" button-3d" [matMenuTriggerFor]="menu">Vizualizare liste create</button> -->
+    <mat-accordion>
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Vizualizare liste create
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="listeCreate">
+                <app-cautare-liste-particulare [test]="test"></app-cautare-liste-particulare>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
     <button class=" button-3d" routerLink="/arhiva">Arhiva</button>
     <button class=" button-3d" routerLink="/despre">Despre</button>
     <button class=" button-3d" routerLink="/contact">Contact</button>

@@ -2,7 +2,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <div *ngIf="numeListeParticulare.length">
-    <h2 class="center titlu">Listele create de dumneavostra sunt : </h2>
+    <h2 class="center titlu margin-top">Listele create de dumneavostra sunt : </h2>
     <div class="liste-container">
         <div *ngFor="let nume of numeListeParticulare; let i = index" class="liste">
             <button class="button-3d" routerLink="/listaParticulara/{{nume}}"> {{nume}}</button>
