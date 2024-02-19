@@ -81,6 +81,8 @@ export class FiltreListaPersonalizataComponent implements OnInit {
         this.numeFormControl.push(new FormControl(value));
       }
     });
+    this.mapM.set(index, 'status');
+    this.mapW.set('status', index);
     console.log(" this.map = ", this.mapM)
     this.listaParticulara.forEach(
       map => {
@@ -104,6 +106,12 @@ export class FiltreListaPersonalizataComponent implements OnInit {
         )
       }
     )
+    { group['status'] = new FormControl('status'); }
+    this.numeFormControl.push(new FormControl('status'));
+    this.lucru = [];
+    this.lucru.push(this.struncturaLista.get(98) as string)
+    this.lucru.push(this.struncturaLista.get(99) as string)
+    this.workMap.set('Status', this.lucru);
     console.log("this.workMap = ", this.workMap)
     let i = 0;
     this.workMap.forEach(

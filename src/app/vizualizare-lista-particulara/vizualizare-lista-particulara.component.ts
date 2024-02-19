@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ListeParticulare } from '../servicii/listeParticulare';
 import { ListaParticulara } from '../model/listaParticulara'
@@ -20,7 +20,7 @@ import { OperatiuniFiltreParticulare } from '../servicii/operatiuniFiltreParticu
   templateUrl: './vizualizare-lista-particulara.component.html',
   styleUrl: './vizualizare-lista-particulara.component.scss'
 })
-export class VizualizareListaParticularaComponent implements OnInit {
+export class VizualizareListaParticularaComponent implements OnInit, OnDestroy {
   coloane: string[] = [];
   titluri: string[] = [];
   public listaComenziSortata = new MatTableDataSource<string[]>();
@@ -47,9 +47,13 @@ export class VizualizareListaParticularaComponent implements OnInit {
     private serviciuFiltrePersonalizate: OperatiuniFiltreParticulare,) {
 
   }
+  ngOnDestroy(): void {
+    this.serviciuFiltrePersonalizate.filtru = false;
+    this.filtruOn = false;
+  }
   ngOnInit(): void {
     this.route.paramMap.subscribe(
-      param => {
+      param => { console.log("test this.nume = ", this.nume)
         this.nume = String(param.get("nume"));
         this.struncturaLista = this.serviciuListeParticulare.recuperareStructuraListaParticulara(String(param.get("nume")))
         this.campEsteOk = this.struncturaLista.get(98) as string;

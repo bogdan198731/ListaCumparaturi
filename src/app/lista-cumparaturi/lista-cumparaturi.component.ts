@@ -101,6 +101,24 @@ export class ListaCumparaturiComponent implements OnInit, OnDestroy {
   sterge(id: number) {
     this.operatiuniLista.stergeComanda(id); 
     this.listaComenziSortata.data = this.operatiuniLista.retituieListaLucru()
+      if(this.gestiuneFiltre.restituieNume().length > 0)
+      { const nume = this.gestiuneFiltre.restituieNume();
+        this.listaComenziSortata.data = this.listaComenziSortata.data.filter(
+          comanda => nume.includes(comanda.nume)
+        )
+      }
+      if(this.gestiuneFiltre.restituieMagazin().length > 0)
+      { const magazin = this.gestiuneFiltre.restituieMagazin();
+        this.listaComenziSortata.data = this.listaComenziSortata.data.filter( 
+          comanda => magazin.includes(comanda.magazin)
+        )
+      }
+      if(this.gestiuneFiltre.restituieStatus().length > 0){
+        const status = this.gestiuneFiltre.restituieStatus();
+        this.listaComenziSortata.data = this.listaComenziSortata.data.filter( 
+          comanda => status.includes(comanda.gata)
+        )
+      }
   }
   veziDetali(id:number){
     this.router.navigate(['/detalii/'+ id]);

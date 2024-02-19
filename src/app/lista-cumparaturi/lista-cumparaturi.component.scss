@@ -1,8 +1,11 @@
-table th{
+@media screen {
+  
+ table th{
   width: 100%;
   background-color: #555555;
   color: white;
   background-color: #215a8d;
+}
 }
 tr:nth-child(odd){
   background-color: aqua;

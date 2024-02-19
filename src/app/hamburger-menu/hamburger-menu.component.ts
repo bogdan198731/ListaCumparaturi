@@ -13,9 +13,10 @@ import {MatIconModule} from '@angular/material/icon';
   styleUrl: './hamburger-menu.component.scss'
 })
 export class HamburgerMenuComponent {
-  isOpen: boolean = false;
+  esteDeschis: boolean = false;
+  esteNecesar : boolean = false;
 
   toggleMenu() {
-    this.isOpen = !this.isOpen;
+    this.esteDeschis = !this.esteDeschis;
   }
 }
