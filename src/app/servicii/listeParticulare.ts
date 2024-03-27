@@ -30,9 +30,7 @@ export class ListeParticulare {
     }
 
     adaugareStructuraListaParticulara(listaParticulara: ListaParticulara) {
-        console.log("listaParticulara.nume : ", listaParticulara.nume)
         localStorage.setItem(listaParticulara.nume, JSON.stringify(Array.from(listaParticulara.lista.entries())));
-        console.log("listaParticulara.lista : ", listaParticulara.lista)
     }
 
     recuperareStructuraListaParticulara(nume: string) :Map<number,string> {
@@ -79,7 +77,6 @@ export class ListeParticulare {
 
 
     salvareComponeneteListaParticulara(nume:string, componenteListaParticulara: Array<Map<string,string>>) {
-        console.log("componenteListaParticulara : ", componenteListaParticulara)
         const serializableArray = componenteListaParticulara.map(map => Array.from(map.entries())); 
         localStorage.setItem(nume+"componente", JSON.stringify(serializableArray));
     }
@@ -119,7 +116,7 @@ export class ListeParticulare {
     }
 
     alimenteazaComandaParticularaLucru(comanda:Map<string,string>)
-    {console.log("alimenteazaComandaParticularaLucru = ", comanda)
+    {
         this.comandaParticularaLucru = comanda;
     }
     returneazaComandaParticularaLucru() :Map<string,string>{

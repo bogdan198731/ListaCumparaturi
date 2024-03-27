@@ -86,3 +86,13 @@ button{
 .delete-row-button:active {
   transform: translateY(2px); /* Subtle "pressed" effect */
 }
+.table-dinamic{
+  display: flex;
+  
+}
+ table td:first-child{
+  max-width: 5rem;
+}
+table th:first-child{
+  max-width: 5rem;
+}

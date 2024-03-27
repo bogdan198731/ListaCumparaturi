@@ -17,7 +17,6 @@ export class CautareListeParticulareComponent implements OnInit{
   @Input() test = false;
   constructor(private listeParticulare:ListeParticulare){}
   ngOnInit(): void {
-    console.log("nume liste particulare : " ,this.listeParticulare.recuperareNumeListeParticulare());
     this.numeListeParticulare = this.listeParticulare.recuperareNumeListeParticulare();
   }
 

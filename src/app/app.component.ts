@@ -9,7 +9,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { RouterComponent } from "./router/router.component";
 import { HamburgerMenuComponent } from "./hamburger-menu/hamburger-menu.component";
-
+import { App as CapacitorApp } from '@capacitor/app';
+CapacitorApp.addListener('backButton', ({canGoBack}) => {
+  if(!canGoBack){
+    CapacitorApp.exitApp();
+  } else {
+    window.history.back();
+  }
+});
 @Component({
     selector: 'app-root',
     standalone: true,
@@ -31,5 +38,6 @@ import { HamburgerMenuComponent } from "./hamburger-menu/hamburger-menu.componen
     ]
 })
 export class AppComponent {
-  title = 'listaCumparaturi';
+  title = 'E-Util';
+
 }

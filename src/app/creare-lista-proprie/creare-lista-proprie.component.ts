@@ -99,15 +99,12 @@ optiune :string = "Facultativ";
     }
 
   creareListNoua() {
-    console.log("nume lista : ", this.nume.value)
     this.listaSpecifica.nume = this.nume.value as string;
     let index = 0;
     for (const form of this.formularDinamic.values()) {
       if (form.valid) {
         const val = form.value;   
         this.listaSpecifica.lista.set(index++, form.get('numeCamp')?.value);
-      } else {
-        console.log('Form is invalid');
       }
     }
     if(this.campOK.value){
@@ -124,7 +121,6 @@ optiune :string = "Facultativ";
       }
     this.listaSpecifica.lista.set(100,'Detalii')
     this.listaSpecifica.lista.set(101,'index')
-    console.log("test noua : ", this.listaSpecifica)
     this.listeParticulare.adaugareListaParticularaNoua(this.listaSpecifica);
     this.router.navigate(['/vizualizareListeParticulare']);
   }

@@ -73,8 +73,6 @@ export class FiltreListaPersonalizataComponent implements OnInit {
     this.struncturaLista.forEach((value, key) => {
       if (!((key === 98) || (key === 99) || (key === 101) || (key === 100))) { group[value] = new FormControl(value); }
       if (group[value]) {
-        console.log("map VAlue = ", value)
-        console.log("map Key = ", key)
         this.mapM.set(index, value);
         this.mapW.set(value, index);
         index++;
@@ -83,22 +81,18 @@ export class FiltreListaPersonalizataComponent implements OnInit {
     });
     this.mapM.set(index, 'status');
     this.mapW.set('status', index);
-    console.log(" this.map = ", this.mapM)
     this.listaParticulara.forEach(
       map => {
         map.forEach(
           (value: string, key: string) => {
-            console.log("key : ", key, " value : ", value)
             if (this.mapW.has(key)) {
-              console.log("(map.get(value) = ", (map.get(value)))
               if (this.workMap.get(key)) {
                 this.lucru = this.workMap.get(key) as string[];
-                console.log("try")
               }
               else {
                 this.lucru = [];
               }
-              console.log("this.lucru = ", this.lucru)
+
               this.lucru.push(value)
               this.workMap.set(key, this.lucru);
             }
@@ -112,11 +106,9 @@ export class FiltreListaPersonalizataComponent implements OnInit {
     this.lucru.push(this.struncturaLista.get(98) as string)
     this.lucru.push(this.struncturaLista.get(99) as string)
     this.workMap.set('Status', this.lucru);
-    console.log("this.workMap = ", this.workMap)
     let i = 0;
     this.workMap.forEach(
       map => {
-        console.log("i = ", i, " map = ", map)
         this.arrayLucru[i] = [];
         this.arrayLucru[i].push(CustomStringSort.sortByPriority([... new Set(map)]))
         i++;
@@ -131,13 +123,11 @@ export class FiltreListaPersonalizataComponent implements OnInit {
       (control, index) => {
         if (control.dirty) {
           this.serviciuFiltreParticulare.filtru = true;
-          console.log("Control = ", control.value, " index = ", index)
           this.lucru = control.value;
           this.workMap.set(this.mapM.get(index) as string, this.lucru)
         }
       }
     )
-    console.log("this.workMap = ", this.workMap)
     this.serviciuFiltreParticulare.alimentareWorkMap(this.workMap)
     this.router.navigate(['/listaParticulara/' + this.nume]);
   }

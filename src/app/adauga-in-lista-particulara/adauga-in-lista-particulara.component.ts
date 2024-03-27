@@ -72,10 +72,8 @@ export class AdaugaInListaParticularaComponent implements OnInit{
 
     this.route.paramMap.subscribe(
       param => {
-        console.log(param.get("nume"))
         this.nume = param.get("nume") as string;
         this.struncturaLista =  this.listeParticulare.recuperareStructuraListaParticulara(String(param.get("nume")))
-        console.log("strunctura : ", this.struncturaLista)
         this.myForm = this.createFormGroup()
       }
     )
@@ -94,12 +92,10 @@ export class AdaugaInListaParticularaComponent implements OnInit{
 
     this.struncturaLista.forEach(key => {
       this.comandaParticulara.set(key, this.myForm.get(key)?.value);
-      console.log("key : ", key, " value : ", this.myForm.get(key)?.value)
     });
     this.comandaParticulara.set("status",this.struncturaLista.get(98) as string)
     this.comandaParticulara.set("index", this.index as unknown as string)
     this.listaParticulara.push(this.comandaParticulara)
-    console.log("this.listaParticulara : ",this.listaParticulara)
     this.listeParticulare.salvareComponeneteListaParticulara(this.nume,this.listaParticulara)
     localStorage.setItem('index', this.index.toString());
     this.router.navigate(['/listaParticulara/',this.nume]);
@@ -110,7 +106,6 @@ export class AdaugaInListaParticularaComponent implements OnInit{
     this.struncturaLista.forEach((value, key) => {
       if(!((key === 98) || (key===99) || (key===101))) 
      { group[value] = new FormControl(this.struncturaLista.get(Number(value)));}
-      console.log("value : ", value)
     });
     return new FormGroup(group);
   }

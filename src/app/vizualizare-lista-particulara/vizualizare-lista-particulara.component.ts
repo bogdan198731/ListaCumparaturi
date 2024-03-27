@@ -53,7 +53,7 @@ export class VizualizareListaParticularaComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe(
-      param => { console.log("test this.nume = ", this.nume)
+      param => { 
         this.nume = String(param.get("nume"));
         this.struncturaLista = this.serviciuListeParticulare.recuperareStructuraListaParticulara(String(param.get("nume")))
         this.campEsteOk = this.struncturaLista.get(98) as string;
@@ -117,9 +117,7 @@ export class VizualizareListaParticularaComponent implements OnInit, OnDestroy {
     this.router.navigate(['/filtrepersonalizate/' + this.nume]);
     // this.reload.next(false)
   }
-  test() {
-    console.log("Apasat")
-  }
+
 
   creareTabelaSimplificata() {
     let i = 0;
@@ -163,34 +161,25 @@ export class VizualizareListaParticularaComponent implements OnInit, OnDestroy {
   }
 
   modificaStare(element: string) {
-    console.log("modificare stare", element)
-    console.log("this.listaParticulara element = ", this.listaParticulara)
     let el = this.listaParticulara.find(map => map.get("index") === element)
     if (el) {
-      console.log("GASIT")
       if (this.struncturaLista.get(98) as string === el.get("status")) {
         el.set("status", this.struncturaLista.get(99) as string)
-        console.log("this.struncturaLista.get(99) as string = ", this.struncturaLista.get(99) as string)
       }
       else {
         el.set("status", this.struncturaLista.get(98) as string)
-        console.log("this.struncturaLista.get(98) as string = ", this.struncturaLista.get(98) as string)
       }
     }
-    console.log("this.el modificata = ", el)
-    console.log("this.listaParticulara modificata = ", this.listaParticulara)
     this.serviciuListeParticulare.salvareComponeneteListaParticulara(this.nume, this.listaParticulara)
     this.alimTablela();
   }
 
   alimTablela() {
-    console.log("this.listaParticulara = ",this.listaParticulara)
     this.listaParticularaLucru = this.listaParticulara;
     if (this.serviciuFiltrePersonalizate.filtru) {
       {
         this.filtruOn = true;
-        console.log("this.serviciuFiltrePersonalizate.returnareWorkMap() = ", this.serviciuFiltrePersonalizate.returnareWorkMap())
-        this.listaLucru = []
+         this.listaLucru = []
         if (this.serviciuFiltrePersonalizate.returnareWorkMap()) {
           this.workMap = this.serviciuFiltrePersonalizate.returnareWorkMap()
 
@@ -200,19 +189,13 @@ export class VizualizareListaParticularaComponent implements OnInit, OnDestroy {
               let mapTest = new Map()
               map.forEach(
                 (value, key) => {
-                  console.log("value = ", value, " key = ", key)
-                  console.log("this.workMap = ", this.workMap.get(value));
-                  console.log("test merge", key)
 
                   if (this.workMap.has(key)) {
-                    console.log("ARE VALOARE", key)
                     const arrayDeTest = this.workMap.get(key)
 
-                    console.log("arrayDeTest = ", arrayDeTest)
                     if (arrayDeTest?.find(
                       f => f === value
                     )) {
-                      // console.log("ALIMENTEZ TEST")
                       alimentez = true;
                     }
                   }
@@ -220,7 +203,6 @@ export class VizualizareListaParticularaComponent implements OnInit, OnDestroy {
                 }
               )
               if (alimentez) {
-                // console.log("ALIMENTEZ", map)
                 this.listaLucru.push(map)
               }
             }
@@ -237,11 +219,9 @@ export class VizualizareListaParticularaComponent implements OnInit, OnDestroy {
     this.listaComenziSortata.data = this.listaLucru.map(map => {
       const obj: any = {};
       map.forEach((value, key) => {
-        // console.log("KEY = ", value, " VALUE = ", key)
         let str: string = "";
         this.struncturaLista.forEach(
           (keyS, valueS) => {
-            // console.log("KEYS = ", keyS, " VALUES = ", valueS)
             if (keyS === key) {
               str = "camp" + valueS
             }
@@ -256,6 +236,5 @@ export class VizualizareListaParticularaComponent implements OnInit, OnDestroy {
       });
       return obj;
     });
-    console.log("this.listaParticulara alim table = ", this.listaParticulara)
   }
 }

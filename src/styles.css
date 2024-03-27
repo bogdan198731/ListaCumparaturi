@@ -8,8 +8,33 @@ background-image: linear-gradient(to right top, #ffc17d, #ff9e7c, #ff7a8a, #ff5d
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 button{
-    height: 2rem;
+    height: 2.9rem !important;
     border-radius: 0.5rem;
+    font-size: 1.2rem !important;
+    max-width: 9rem;
+}
+mat-sort-header-content{
+  height: 2.9rem;
+  min-width: 2.9rem ;
+}
+.input-nume{
+  height: 2.9rem;
+  margin-right: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: antiquewhite;
+  border:none;
+  margin-left: 0.6rem;
+  margin-bottom: 0.2rem;
+  font-size: 1rem;
+  
+}
+
+/* .label-class{
+  font-size: 1.8rem;
+} */
+
+.entete{
+  margin-top: 4.5rem;
 }
 .button-3d{
     background-color: #e07a5f; /* Red background */
@@ -55,4 +80,8 @@ button{
   }
   .mat-mdc-menu-content{
     background-color: rgba(104, 142, 230, 0.515);
+  }
+
+  mat-typography{
+    font-size: 2rem;
   }

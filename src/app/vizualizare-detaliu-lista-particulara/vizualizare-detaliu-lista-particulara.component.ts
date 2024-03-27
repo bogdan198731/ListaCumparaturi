@@ -57,10 +57,6 @@ export class VizualizareDetaliuListaParticularaComponent implements OnInit{
       }
     ) 
     this.listaLucru = this.serviciuListeParticulare.returneazaComandaParticularaLucru()
-    // this.struncturaLista.forEach(key => {
-    //   this.listaLucru.set(key, this.myForm.get(key)?.value);
-    //   console.log("key : ", key, " value : ", this.myForm.get(key)?.value)
-    // });
   }
   createFormGroup() {
     const group: any = {};
@@ -86,14 +82,12 @@ export class VizualizareDetaliuListaParticularaComponent implements OnInit{
     this.listaParticulara = this.serviciuListeParticulare.recuperareComponenteListaParticulara(this.nume);
     let el = this.listaParticulara.find(map => map.get("index") === this.listaLucru.get("index"))
     if (el) {
-      console.log("el exista")
       this.listaLucru.forEach(
         (key,value) => {
           el?.set(value, key)
         }
       );  
     }
-    console.log("el exista", el)
     this.serviciuListeParticulare.salvareComponeneteListaParticulara(this.nume,this.listaParticulara)
     this.router.navigate(['/listaParticulara/'+ this.nume]);
   }

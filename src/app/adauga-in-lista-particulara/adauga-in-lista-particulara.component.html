@@ -2,13 +2,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <div>
-    <h2>Adauga element in lista {{nume}}</h2>
+    <h1 class="label-class">Adauga element in lista {{nume}}</h1>
     <form [formGroup]="myForm" (ngSubmit)="adaugInLista()" class="ecran">
         <table>
             <tr *ngFor="let key of objectKeys(myForm.controls)">
-                <td>
-                    <label>{{key}}</label>
+                <td class="label-class">
+                    <label> {{key}} </label>
                 </td>
+                <td class="label-class"> : </td>
                 <td>
                     <input class="input-nume" type="text" [formControlName]="key">
                 </td>
