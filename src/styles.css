@@ -11,7 +11,6 @@ button{
     height: 2.9rem !important;
     border-radius: 0.5rem;
     font-size: 1.2rem !important;
-    max-width: 9rem;
 }
 mat-sort-header-content{
   height: 2.9rem;
@@ -25,7 +24,7 @@ mat-sort-header-content{
   border:none;
   margin-left: 0.6rem;
   margin-bottom: 0.2rem;
-  font-size: 1rem;
+  /* font-size: 0rem; */
   
 }
 
